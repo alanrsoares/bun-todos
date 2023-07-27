@@ -3,10 +3,18 @@
   "version": "1.0.44",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "dev": "bun run --watch src/index.ts"
+    "dev": "concurrently \"bun run --watch src/index.tsx\" \"bun run tw:dev\"",
+    "tw": "bunx tailwindcss -i ./src/globals.css -o ./public/styles.css",
+    "tw:dev": "bun run tw --watch"
   },
   "dependencies": {
-    "elysia": "latest"
+    "@elysiajs/html": "^0.5.2",
+    "clsx": "^2.0.0",
+    "concurrently": "^8.2.0",
+    "daisyui": "^3.5.0",
+    "elysia": "latest",
+    "tailwindcss": "^3.3.3",
+    "typed-html": "^3.0.1"
   },
   "devDependencies": {
     "bun-types": "latest"
