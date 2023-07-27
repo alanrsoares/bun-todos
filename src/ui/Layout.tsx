@@ -27,7 +27,7 @@ export default function Layout({ children }: Props) {
       <Header />
       <Clamp class="container mx-auto flex-1">
         <h1>Layout</h1>
-        {children}
+        <main>{children}</main>
       </Clamp>
     </div>
   );
