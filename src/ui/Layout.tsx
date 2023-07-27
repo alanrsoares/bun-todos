@@ -25,10 +25,9 @@ export default function Layout({ children }: Props) {
   return (
     <div class="min-h-[100dvh] flex flex-col gap-4">
       <Header />
-      <Clamp class="container mx-auto flex-1">
-        <h1>Layout</h1>
-        <main>{children}</main>
-      </Clamp>
+      <main class="flex-1 flex">
+        <Clamp class="container flex mx-auto flex-1">{children}</Clamp>
+      </main>
     </div>
   );
 }

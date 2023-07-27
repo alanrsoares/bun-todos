@@ -4,67 +4,39 @@ import { html } from "@elysiajs/html";
 import * as elements from "typed-html";
 import { APP_TITLE } from "./config";
 import Layout from "./ui/Layout";
-
-const IN_MEMORY_STATE = {
-  name: "Bun",
-};
-
-const HelloForm = ({ name }: { name: string }) => (
-  <form hx-put="/contact" hx-target="this" hx-swap="outerHTML">
-    <div hx-target="this" hx-swap="outerHTML">
-      <div>
-        <label>Name</label>:
-        <input class="input input-sm" type="text" name="name" value={name} />
-      </div>
-      <button type="submit" class="btn btn-primary">
-        Submit
-      </button>
-      <button class="btn" hx-get="/contact">
-        Cancel
-      </button>
-    </div>
-  </form>
-);
-
-const HelloWorld = ({ name }: { name: string }) => (
-  <div hx-target="this" hx-swap="outerHTML">
-    <div>
-      <label>Name</label>: <span class="input input-sm"> {name}</span>
-    </div>
-    <button hx-get="/contact/edit" class="btn btn-primary">
-      Click To Edit
-    </button>
-  </div>
-);
+import HomePage from "./pages";
+import { IN_MEMORY_STATE } from "./lib/todos";
 
 const app = new Elysia()
   .use(html())
+  // pages: index
   .get("/", ({ html }) =>
     html(
       <Document>
         <Layout>
-          <section>
-            <h1 class="text-accent">Hello, Bun! 🥟</h1>
-          </section>
-          <HelloWorld name={IN_MEMORY_STATE.name} />
+          <HomePage />
         </Layout>
       </Document>
     )
   )
-  .get("/contact/edit", ({ html }) => {
-    return html(<HelloForm name={IN_MEMORY_STATE.name} />);
-  })
-  .put(
-    "/contact",
-    ({ html, body }) => {
-      IN_MEMORY_STATE.name = body.name;
-
-      return html(<HelloWorld name={body.name ?? "no name"} />);
-    },
-    {
-      body: t.Object({ name: t.String() }),
-    }
+  // todo list
+  .get("/todos", ({ html }) =>
+    html(
+      <ul>
+        {IN_MEMORY_STATE.todos.map((todo) => (
+          <li>
+            <form>
+              <label class="form-checkbox">
+                <input type="checkbox" checked={todo.completed} />
+                <i class="form-icon"></i> {todo.title}
+              </label>
+            </form>
+          </li>
+        ))}
+      </ul>
+    )
   )
+
   .get("/styles.css", () => Bun.file("./public/styles.css"))
   .listen(3000);
 
