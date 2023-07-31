@@ -6,6 +6,7 @@ import { APP_TITLE } from "./config";
 import Layout from "./ui/Layout";
 import HomePage from "./pages";
 import { IN_MEMORY_STATE } from "./lib/todos";
+import TodoList from "./ui/TodoList";
 
 const app = new Elysia()
   .use(html())
@@ -16,32 +17,17 @@ const app = new Elysia()
         <Layout>
           <HomePage />
         </Layout>
-      </Document>
-    )
+      </Document>,
+    ),
   )
   // todo list
-  .get("/todos", ({ html }) =>
-    html(
-      <ul>
-        {IN_MEMORY_STATE.todos.map((todo) => (
-          <li>
-            <form>
-              <label class="form-checkbox">
-                <input type="checkbox" checked={todo.completed} />
-                <i class="form-icon"></i> {todo.title}
-              </label>
-            </form>
-          </li>
-        ))}
-      </ul>
-    )
-  )
+  .get("/todos", ({ html }) => html(<TodoList todos={IN_MEMORY_STATE.todos} />))
 
   .get("/styles.css", () => Bun.file("./public/styles.css"))
   .listen(3000);
 
 console.log(
-  `🦊 Elysia is running at ${app.server?.hostname}:${app.server?.port}`
+  `🦊 Elysia is running at ${app.server?.hostname}:${app.server?.port}`,
 );
 
 const Document = ({ children }: elements.Children) => `
