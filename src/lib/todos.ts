@@ -4,7 +4,7 @@ const uuid = () =>
 
 export type ITodoItem = {
   id: string;
-  title: string;
+  content: string;
   completed: boolean;
 };
 
@@ -12,29 +12,29 @@ export const IN_MEMORY_STATE = {
   todos: [
     {
       id: uuid(),
-      title: "Learn TypeScript",
+      content: "Learn TypeScript",
       completed: true,
     },
     {
       id: uuid(),
-      title: "Learn React",
+      content: "Learn React",
       completed: false,
     },
     {
       id: uuid(),
-      title: "Learn Next.js",
+      content: "Learn Next.js",
       completed: false,
     },
   ] as ITodoItem[],
 };
 
 export function addTodo(
-  title: string,
+  content: string,
   state: typeof IN_MEMORY_STATE = IN_MEMORY_STATE,
 ) {
   const newTodo = {
     id: uuid(),
-    title,
+    content,
     completed: false,
   };
   state.todos.push(newTodo);
@@ -46,9 +46,10 @@ export function toggleTodo(
   state: typeof IN_MEMORY_STATE = IN_MEMORY_STATE,
 ) {
   const todo = state.todos.find((todo) => todo.id === id);
-  if (todo) {
-    todo.completed = !todo.completed;
+  if (!todo) {
+    throw new Error(`Todo with id ${id} not found!`);
   }
+  todo.completed = !todo.completed;
   return todo;
 }
 

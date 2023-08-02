@@ -3,6 +3,7 @@ import * as elements from "typed-html";
 import { PropsWithChildren } from "~/types";
 import TodoItem from "./TodoItem";
 import { ITodoItem } from "~/lib/todos";
+import TodoForm from "./TodoForm";
 
 type Props = PropsWithChildren<{
   todos: ITodoItem[];
@@ -10,10 +11,11 @@ type Props = PropsWithChildren<{
 
 export default function TodoList({ todos }: Props) {
   return (
-    <ul class="space-y-2">
+    <div class="space-y-4">
       {todos.map((todo) => (
         <TodoItem {...todo} />
       ))}
-    </ul>
+      <TodoForm />
+    </div>
   );
 }

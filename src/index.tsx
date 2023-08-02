@@ -5,8 +5,9 @@ import * as elements from "typed-html";
 import { APP_TITLE } from "./config";
 import Layout from "./ui/Layout";
 import HomePage from "./pages";
-import { IN_MEMORY_STATE } from "./lib/todos";
+import { IN_MEMORY_STATE, addTodo, toggleTodo, removeTodo } from "./lib/todos";
 import TodoList from "./ui/TodoList";
+import TodoItem from "./ui/TodoItem";
 
 const app = new Elysia()
   .use(html())
@@ -20,14 +21,53 @@ const app = new Elysia()
       </Document>,
     ),
   )
-  // todo list
+  // get all todos
   .get("/todos", ({ html }) => html(<TodoList todos={IN_MEMORY_STATE.todos} />))
+  // add a todo
+  .post(
+    "/todos",
+    ({ body }) => {
+      const newTodo = addTodo(body.content, IN_MEMORY_STATE);
 
+      return <TodoItem {...newTodo} />;
+    },
+    {
+      body: t.Object({
+        content: t.String({ minLength: 1 }),
+      }),
+    },
+  )
+  // toggle a todo
+  .post(
+    "/todos/toggle/:id",
+    ({ params }) => {
+      const todo = toggleTodo(params.id, IN_MEMORY_STATE);
+
+      return <TodoItem {...todo} />;
+    },
+    {
+      params: t.Object({
+        id: t.String({ minLength: 1 }),
+      }),
+    },
+  )
+  // delete a todo
+  .delete(
+    "/todos/:id",
+    ({ params }) => {
+      removeTodo(params.id, IN_MEMORY_STATE);
+    },
+    {
+      params: t.Object({
+        id: t.String({ minLength: 1 }),
+      }),
+    },
+  )
   .get("/styles.css", () => Bun.file("./public/styles.css"))
   .listen(3000);
 
 console.log(
-  `🦊 Elysia is running at ${app.server?.hostname}:${app.server?.port}`,
+  `🦊 Elysia is running at http://${app.server?.hostname}:${app.server?.port}`,
 );
 
 const Document = ({ children }: elements.Children) => `
