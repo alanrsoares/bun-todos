@@ -8,6 +8,7 @@ import HomePage from "./pages";
 import { IN_MEMORY_STATE, addTodo, toggleTodo, removeTodo } from "./lib/todos";
 import TodoList from "./ui/TodoList";
 import TodoItem from "./ui/TodoItem";
+import { Children } from "./lib/tw";
 
 const app = new Elysia()
   .use(html())
@@ -18,8 +19,8 @@ const app = new Elysia()
         <Layout>
           <HomePage />
         </Layout>
-      </Document>,
-    ),
+      </Document>
+    )
   )
   // get all todos
   .get("/todos", ({ html }) => html(<TodoList todos={IN_MEMORY_STATE.todos} />))
@@ -35,7 +36,7 @@ const app = new Elysia()
       body: t.Object({
         content: t.String({ minLength: 1 }),
       }),
-    },
+    }
   )
   // toggle a todo
   .post(
@@ -49,7 +50,7 @@ const app = new Elysia()
       params: t.Object({
         id: t.String({ minLength: 1 }),
       }),
-    },
+    }
   )
   // delete a todo
   .delete(
@@ -61,16 +62,16 @@ const app = new Elysia()
       params: t.Object({
         id: t.String({ minLength: 1 }),
       }),
-    },
+    }
   )
   .get("/styles.css", () => Bun.file("./public/styles.css"))
   .listen(3000);
 
 console.log(
-  `🦊 Elysia is running at http://${app.server?.hostname}:${app.server?.port}`,
+  `🦊 Elysia is running at http://${app.server?.hostname}:${app.server?.port}`
 );
 
-const Document = ({ children }: elements.Children) => `
+const Document = ({ children }: { children: Children }) => `
 <!DOCTYPE html>
 <html lang="en">
 
@@ -78,8 +79,8 @@ const Document = ({ children }: elements.Children) => `
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>${APP_TITLE}</title>
-  <script src="https://unpkg.com/htmx.org@1.9.4"></script>
-  <script src="https://unpkg.com/hyperscript.org@0.9.9"></script>
+  <script src="https://unpkg.com/htmx.org@1.9.10"></script>
+  <script src="https://unpkg.com/hyperscript.org@0.9.12"></script>
   <link href="/styles.css" rel="stylesheet">
 </head>
 

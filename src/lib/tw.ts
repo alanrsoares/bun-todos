@@ -1,5 +1,6 @@
 import * as elements from "typed-html";
 import { cn } from "./utils";
+import { VariantProps, cva } from "class-variance-authority";
 
 type ElementKeys = keyof JSX.IntrinsicElements;
 
@@ -114,30 +115,62 @@ export const ELEMENT_KEYS: ReadonlyArray<ElementKeys> = [
   "video",
 ];
 
-type Attributes = Record<string, string | Promise<string>>;
+export type Children = string | Promise<string>;
 
-type CreateElement = (
-  classNames: TemplateStringsArray
-) => (attributes?: Attributes, ...contents: string[]) => string;
+export type Attributes = Record<string, number | boolean | Children>;
+
+export type RenderElement<T = {}> = (
+  attributes?: Attributes & T,
+  ...contents: string[]
+) => string;
+
+export type CreateElement = (classNames: TemplateStringsArray) => RenderElement;
+
+type CVA<T = any> = typeof cva<T>;
 
 function createTW() {
   return ELEMENT_KEYS.reduce(
     (acc, key) => {
-      const createElement: CreateElement =
-        (...classNames) =>
-        (attributes?, ...contents) =>
-          elements.createElement(
-            key,
-            {
-              ...attributes,
-              class: cn(attributes?.class, ...classNames),
-            },
-            ...contents
-          );
+      const createElement = Object.assign(
+        ((...classNames) =>
+          (attributes?, ...contents) =>
+            elements.createElement(
+              key,
+              {
+                ...attributes,
+                class: cn(attributes?.class, ...classNames),
+              },
+              ...contents
+            )) satisfies CreateElement,
+        {
+          cva: (...args: Parameters<CVA>) => {
+            const variance = cva(...args);
+
+            type VProps = VariantProps<typeof variance>;
+
+            return (attributes: Attributes & VProps, ...contents: string[]) =>
+              elements.createElement(
+                key,
+                {
+                  ...attributes,
+                  class: cn(attributes?.class, variance(attributes)),
+                },
+                ...contents
+              );
+          },
+        }
+      );
 
       return { ...acc, [key]: createElement };
     },
-    {} as Record<ElementKeys, CreateElement>
+    {} as Record<
+      ElementKeys,
+      CreateElement & {
+        cva: <T>(
+          ...args: Parameters<CVA<T>>
+        ) => RenderElement<VariantProps<ReturnType<CVA<T>>>>;
+      }
+    >
   );
 }
 

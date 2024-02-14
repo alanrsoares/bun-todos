@@ -1,4 +1,5 @@
 import * as elements from "typed-html";
+import { Button, Input } from "./core";
 
 export default function TodoForm() {
   return (
@@ -8,15 +9,15 @@ export default function TodoForm() {
       hx-swap="beforebegin"
       _="on submit target.reset()"
     >
-      <input
+      <Input
         type="text"
         name="content"
         placeholder="What needs to be done?"
-        class="input input-bordered"
+        bordered
       />
-      <button type="submit" class="btn btn-primary">
+      <Button type="submit" variant="primary">
         Add
-      </button>
+      </Button>
     </form>
   );
 }
