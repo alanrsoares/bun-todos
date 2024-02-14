@@ -71,6 +71,17 @@ console.log(
   `🦊 Elysia is running at http://${app.server?.hostname}:${app.server?.port}`
 );
 
+const SCRIPTS = [
+  {
+    name: "htmx.org",
+    version: "1.9.10",
+  },
+  {
+    name: "hyperscript.org",
+    version: "0.9.11",
+  },
+];
+
 const Document = ({ children }: { children: Children }) => `
 <!DOCTYPE html>
 <html lang="en">
@@ -79,8 +90,9 @@ const Document = ({ children }: { children: Children }) => `
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>${APP_TITLE}</title>
-  <script src="https://unpkg.com/htmx.org@1.9.10"></script>
-  <script src="https://unpkg.com/hyperscript.org@0.9.12"></script>
+  ${SCRIPTS.map(({ name, version }) => (
+    <script src={`https://unpkg.com/${name}@${version}`} />
+  ))}
   <link href="/styles.css" rel="stylesheet">
 </head>
 

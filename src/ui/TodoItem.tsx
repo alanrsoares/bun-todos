@@ -4,7 +4,7 @@ import { ITodoItem } from "~/lib/todos";
 import { TrashIcon } from "./icons";
 import { HxProps, PropsWithChildren } from "~/lib/tw";
 
-type Props = PropsWithChildren<ITodoItem>;
+type Props = ITodoItem;
 
 export default function TodoItem({ completed, id, content }: Props) {
   return (
