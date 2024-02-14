@@ -1,5 +1,5 @@
 import * as elements from "typed-html";
-import { FC, PropsWithChildren } from "~/types";
+import { FC, PropsWithChildren } from "~/lib/tw";
 import { Clamp } from "./core";
 
 type Props = PropsWithChildren<{}>;

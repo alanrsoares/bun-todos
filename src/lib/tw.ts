@@ -115,9 +115,26 @@ export const ELEMENT_KEYS: ReadonlyArray<ElementKeys> = [
   "video",
 ];
 
-export type Children = string | Promise<string>;
+export type Children = string | Promise<string> | null | undefined;
 
-export type Attributes = Record<string, number | boolean | Children>;
+export type PropsWithChildren<P = {}> = P & { children?: Children };
+
+export type FC<P = elements.Attributes> = (
+  props: PropsWithChildren<P>
+) => null | string | Promise<string>;
+
+export type HxProps = elements.Attributes &
+  Partial<{
+    "hx-delete": string;
+    "hx-swap": string;
+    "hx-target": string;
+    "hx-post": string;
+  }>;
+
+export type Attributes = Record<
+  string,
+  number | boolean | Children | Children[]
+>;
 
 export type RenderElement<T = {}> = (
   attributes?: Attributes & T,
@@ -131,6 +148,23 @@ type CVA<T = any> = typeof cva<T>;
 function createTW() {
   return ELEMENT_KEYS.reduce(
     (acc, key) => {
+      const cvaExtension = (...args: Parameters<CVA>) => {
+        const variance = cva(...args);
+
+        return (
+          attributes: Attributes & VariantProps<typeof variance>,
+          ...contents: string[]
+        ) =>
+          elements.createElement(
+            key,
+            {
+              ...attributes,
+              class: cn(attributes?.class, variance(attributes)),
+            },
+            ...contents
+          );
+      };
+
       const createElement = Object.assign(
         ((...classNames) =>
           (attributes?, ...contents) =>
@@ -143,21 +177,7 @@ function createTW() {
               ...contents
             )) satisfies CreateElement,
         {
-          cva: (...args: Parameters<CVA>) => {
-            const variance = cva(...args);
-
-            type VProps = VariantProps<typeof variance>;
-
-            return (attributes: Attributes & VProps, ...contents: string[]) =>
-              elements.createElement(
-                key,
-                {
-                  ...attributes,
-                  class: cn(attributes?.class, variance(attributes)),
-                },
-                ...contents
-              );
-          },
+          cva: cvaExtension,
         }
       );
 

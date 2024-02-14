@@ -1,9 +1,9 @@
 import * as elements from "typed-html";
 
-import { PropsWithChildren } from "~/types";
 import TodoItem from "./TodoItem";
 import { ITodoItem } from "~/lib/todos";
 import TodoForm from "./TodoForm";
+import { PropsWithChildren } from "~/lib/tw";
 
 type Props = PropsWithChildren<{
   todos: ITodoItem[];

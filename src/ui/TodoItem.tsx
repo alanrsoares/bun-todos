@@ -1,9 +1,8 @@
 import * as elements from "typed-html";
 
-import { PropsWithChildren } from "~/types";
 import { ITodoItem } from "~/lib/todos";
 import { TrashIcon } from "./icons";
-import { HxProps } from "~/types";
+import { HxProps, PropsWithChildren } from "~/lib/tw";
 
 type Props = PropsWithChildren<ITodoItem>;
 

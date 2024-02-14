@@ -9,6 +9,7 @@ export default function HomePage() {
     <Container>
       <Card class="bg-base-200 w-min mx-auto">
         <Card.Body class="space-y-4">
+          <Card.Title>What needs to be done?</Card.Title>
           <div hx-get="/todos" hx-swap="outerHtml" hx-trigger="load" />
         </Card.Body>
       </Card>
