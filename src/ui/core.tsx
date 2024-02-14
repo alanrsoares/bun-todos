@@ -1,6 +1,6 @@
 import clsx from "clsx";
 import * as elements from "typed-html";
-import { FC, PropsWithChildren } from "~/types";
+import { FC } from "~/types";
 
 export const Clamp: FC<elements.Attributes> = ({
   class: className,
