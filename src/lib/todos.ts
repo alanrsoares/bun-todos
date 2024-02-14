@@ -90,7 +90,11 @@ export function toggleAllTodos(
   state: typeof IN_MEMORY_STATE = IN_MEMORY_STATE
 ) {
   const allTodosCompleted = state.todos.every((todo) => todo.completed);
-  state.todos.forEach((todo) => (todo.completed = !allTodosCompleted));
+
+  for (const todo of state.todos) {
+    todo.completed = !allTodosCompleted;
+  }
+
   return state.todos;
 }
 
