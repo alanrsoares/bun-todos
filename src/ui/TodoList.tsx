@@ -12,9 +12,7 @@ type Props = PropsWithChildren<{
 export default function TodoList({ todos }: Props) {
   return (
     <div class="space-y-4">
-      {todos.map((todo) => (
-        <TodoItem {...todo} />
-      ))}
+      {todos.map(TodoItem)}
       <TodoForm />
     </div>
   );
