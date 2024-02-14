@@ -1,7 +1,9 @@
 import * as elements from "typed-html";
 import { cn } from "./utils";
 
-const ELEMENTS: ReadonlyArray<keyof JSX.IntrinsicElements> = [
+type ElementKeys = keyof JSX.IntrinsicElements;
+
+export const ELEMENT_KEYS: ReadonlyArray<ElementKeys> = [
   "a",
   "abbr",
   "address",
@@ -119,7 +121,7 @@ type CreateElement = (
 ) => (attributes?: Attributes, ...contents: string[]) => string;
 
 function createTW() {
-  return ELEMENTS.reduce(
+  return ELEMENT_KEYS.reduce(
     (acc, key) => {
       const createElement: CreateElement =
         (...classNames) =>
@@ -132,11 +134,10 @@ function createTW() {
             },
             ...contents
           );
+
       return { ...acc, [key]: createElement };
     },
-    {} as {
-      [key in keyof JSX.IntrinsicElements]: CreateElement;
-    }
+    {} as Record<ElementKeys, CreateElement>
   );
 }
 
