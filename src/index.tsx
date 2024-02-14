@@ -5,7 +5,14 @@ import * as elements from "typed-html";
 import { APP_TITLE } from "./config";
 import Layout from "./ui/Layout";
 import HomePage from "./pages";
-import { IN_MEMORY_STATE, addTodo, toggleTodo, removeTodo } from "./lib/todos";
+import {
+  IN_MEMORY_STATE,
+  addTodo,
+  toggleTodo,
+  removeTodo,
+  toggleAllTodos,
+  clearCompletedTodos,
+} from "./lib/todos";
 import TodoList from "./ui/TodoList";
 import TodoItem from "./ui/TodoItem";
 import { Children } from "./lib/tw";
@@ -52,6 +59,12 @@ const app = new Elysia()
       }),
     }
   )
+  // toggle all todos
+  .post("/todos/toggle", () => {
+    const todos = toggleAllTodos(IN_MEMORY_STATE);
+
+    return <TodoList todos={todos} />;
+  })
   // delete a todo
   .delete(
     "/todos/:id",
@@ -64,6 +77,12 @@ const app = new Elysia()
       }),
     }
   )
+  // clean completed todos
+  .delete("/todos", () => {
+    const todos = clearCompletedTodos(IN_MEMORY_STATE);
+
+    return <TodoList todos={todos} />;
+  })
   .get("/styles.css", () => Bun.file("./public/styles.css"))
   .listen(3000);
 

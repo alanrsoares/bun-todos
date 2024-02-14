@@ -2,17 +2,17 @@ import * as elements from "typed-html";
 
 import { ITodoItem } from "~/lib/todos";
 import { TrashIcon } from "./icons";
-import { HxProps, PropsWithChildren } from "~/lib/tw";
+import tw, { HxProps } from "~/lib/tw";
 
 type Props = ITodoItem;
 
 export default function TodoItem({ completed, id, content }: Props) {
   return (
     <div class="flex flex-row space-x-3 items-center w-full justify-between">
-      <label class="flex spaxe-x-3 flex-1">
+      <TodoLabel class="flex spaxe-x-3 flex-1" completed={completed}>
         <div class="flex-1">{content}</div>
-        <Chekbox checked={completed} id={id} />
-      </label>
+        <Checkbox checked={completed} id={id} />
+      </TodoLabel>
       <button
         class="text-red-500"
         hx-delete={`/todos/${id}`}
@@ -27,7 +27,7 @@ export default function TodoItem({ completed, id, content }: Props) {
 
 type CheckboxProps = HxProps & { checked: boolean; id: string };
 
-function Chekbox(props: CheckboxProps) {
+function Checkbox(props: CheckboxProps) {
   return (
     <input
       class="checkbox"
@@ -39,3 +39,11 @@ function Chekbox(props: CheckboxProps) {
     />
   );
 }
+
+const TodoLabel = tw.label.cva("label", {
+  variants: {
+    completed: {
+      true: "line-through",
+    },
+  },
+});
