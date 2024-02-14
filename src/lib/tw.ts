@@ -112,30 +112,30 @@ const ELEMENTS: ReadonlyArray<keyof JSX.IntrinsicElements> = [
   "video",
 ];
 
+type Attributes = Record<string, string | Promise<string>>;
+
+type CreateElement = (
+  classNames: TemplateStringsArray
+) => (attributes?: Attributes, ...contents: string[]) => string;
+
 function createTW() {
   return ELEMENTS.reduce(
-    (acc, key) => ({
-      ...acc,
-      [key]:
-        (...tpl: TemplateStringsArray) =>
-        (
-          attributes?: (elements.Attributes & elements.Children) | undefined,
-          ...contents: string[]
-        ) =>
+    (acc, key) => {
+      const createElement: CreateElement =
+        (...classNames) =>
+        (attributes?, ...contents) =>
           elements.createElement(
             key,
             {
               ...attributes,
-              class: cn(attributes?.class, tpl.join(" ")),
+              class: cn(attributes?.class, ...classNames),
             },
             ...contents
-          ),
-    }),
+          );
+      return { ...acc, [key]: createElement };
+    },
     {} as {
-      [key in keyof JSX.IntrinsicElements]: (
-        tpl: TemplateStringsArray,
-        ...contents: string[]
-      ) => (attributes?: elements.Attributes, ...contents: string[]) => string;
+      [key in keyof JSX.IntrinsicElements]: CreateElement;
     }
   );
 }

@@ -3,8 +3,9 @@
   "version": "1.0.44",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "dev": "concurrently \"bun run --watch src/index.tsx\" \"bun run tw:dev\"",
+    "dev": "concurrently \"bun watch\" \"bun tw:dev\"",
     "tw": "bunx tailwindcss -i ./src/globals.css -o ./public/styles.css",
+    "watch": "bun run --watch src/index.tsx",
     "tw:dev": "bun run tw --watch",
     "format": "prettier --write \"src/**/*.{ts,tsx}\""
   },

@@ -4,7 +4,7 @@ import { Clamp } from "./core";
 
 type Props = PropsWithChildren<{}>;
 
-const BrandLink: FC = ({ children, ...props }) => (
+const BrandLink: FC<JSX.HtmlAnchorTag> = ({ children, ...props }) => (
   <a class="btn btn-ghost" {...props}>
     <div class="avatar bg-error rounded-full h-6 w-6 grid place-items-center ring ring-neutral">
       🥟
@@ -13,8 +13,8 @@ const BrandLink: FC = ({ children, ...props }) => (
   </a>
 );
 
-const Header: FC = () => (
-  <header class="bg-base-200 navbar ring-1">
+const Header: FC<JSX.HtmlTag> = (props) => (
+  <header class="bg-base-200 navbar ring-1" {...props}>
     <Clamp class="navbar-start">
       <BrandLink href="/">Bun ToDo's</BrandLink>
     </Clamp>

@@ -1,10 +1,10 @@
 import * as elements from "typed-html";
 
-export type PropsWithChildren<P = {}> = P & { children?: elements.Children };
+export type PropsWithChildren<P = {}> = P & { children?: any };
 
 export type FC<P = elements.Attributes> = (
   props: PropsWithChildren<P>
-) => string;
+) => null | string | Promise<string>;
 
 export type HxProps = elements.Attributes &
   Partial<{

@@ -1,21 +1,5 @@
-import clsx from "clsx";
-import * as elements from "typed-html";
-import { FC } from "~/types";
+import tw from "~/lib/tw";
 
-export const Clamp: FC<elements.Attributes> = ({
-  class: className,
-  ...props
-}) => (
-  <div class={clsx("container mx-auto w-full", className)}>
-    {props.children}
-  </div>
-);
+export const Clamp = tw.div`container mx-auto w-full`;
 
-export const Button: FC<elements.Attributes> = ({
-  class: className,
-  ...props
-}) => (
-  <button class={clsx("btn", className)} {...props}>
-    {props.children}
-  </button>
-);
+export const Button = tw.button`btn`;
