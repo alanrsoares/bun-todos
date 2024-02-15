@@ -4,10 +4,16 @@ import { html } from "@elysiajs/html";
 import router from "./routers";
 
 function main() {
-  const app = new Elysia().use(html()).use(router).listen(3000);
+  const { server } = new Elysia()
+    // use html middleware
+    .use(html())
+    // use router middleware
+    .use(router)
+    // start server
+    .listen(3000);
 
   console.log(
-    `🦊 Elysia is running at http://${app.server?.hostname}:${app.server?.port}`
+    `🦊 Elysia is running at http://${server?.hostname}:${server?.port}`
   );
 }
 
