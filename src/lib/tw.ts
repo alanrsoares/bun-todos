@@ -121,7 +121,7 @@ export type PropsWithChildren<P = {}> = P & { children?: Children };
 
 export type FC<P = elements.Attributes> = (
   props: PropsWithChildren<P>
-) => null | string | Promise<string>;
+) => null | string;
 
 export type HxProps = elements.Attributes &
   Partial<{
