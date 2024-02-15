@@ -1,4 +1,4 @@
-import tw from "~/lib/tw";
+import tw, { ComponentProps } from "~/lib/tw";
 
 const Card = tw.div.cva("card", {
   variants: {
@@ -13,3 +13,5 @@ export default Object.assign(Card, {
   Body: tw.div`card-body`,
   Actions: tw.div`card-actions`,
 });
+
+export type CardProps = ComponentProps<typeof Card>;

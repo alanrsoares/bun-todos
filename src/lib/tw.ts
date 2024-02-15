@@ -197,3 +197,5 @@ function createTW() {
 const tw = createTW();
 
 export default tw;
+
+export type ComponentProps<T> = T extends (props: infer P) => any ? P : never;
