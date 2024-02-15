@@ -7,14 +7,20 @@
     "tw": "bunx tailwindcss -i ./src/globals.css -o ./public/styles.css",
     "watch": "bun run --watch src/index.tsx",
     "tw:dev": "bun run tw --watch",
-    "format": "prettier --write \"src/**/*.{ts,tsx}\""
+    "format": "prettier --write \"src/**/*.{ts,tsx}\"",
+    "drizzle:generate": "bun drizzle-kit generate:sqlite",
+    "drizzle:up": "bun drizzle-kit up:sqlite",
+    "drizzle:push": "bun drizzle-kit push:sqlite",
+    "drizzle:studio": "bun drizzle-kit studio"
   },
   "dependencies": {
     "@elysiajs/html": "^0.8.0",
+    "@libsql/client": "^0.4.3",
     "class-variance-authority": "^0.7.0",
     "clsx": "^2.1.0",
     "concurrently": "^8.2.2",
     "daisyui": "^4.7.2",
+    "drizzle-orm": "^0.29.3",
     "elysia": "^0.8.17",
     "prettier": "^3.2.5",
     "rambda": "^9.1.0",
@@ -23,7 +29,9 @@
     "typed-html": "^3.0.1"
   },
   "devDependencies": {
-    "bun-types": "latest"
+    "bun-types": "latest",
+    "dotenv": "^16.4.4",
+    "drizzle-kit": "^0.20.14"
   },
   "module": "src/index.js"
 }
