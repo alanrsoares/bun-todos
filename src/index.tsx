@@ -12,7 +12,7 @@ import {
   removeTodo,
   toggleAllTodos,
   clearCompletedTodos,
-} from "./lib/todos";
+} from "./services/todos";
 import TodoList from "./ui/TodoList";
 import TodoItem from "./ui/TodoItem";
 import { Children } from "./lib/tw";

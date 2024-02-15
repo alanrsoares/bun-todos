@@ -1,7 +1,7 @@
 import * as elements from "typed-html";
 
 import TodoItem from "./TodoItem";
-import { ITodoItem } from "~/lib/todos";
+import { ITodoItem } from "~/services/todos";
 import TodoForm from "./TodoForm";
 import { PropsWithChildren } from "~/lib/tw";
 

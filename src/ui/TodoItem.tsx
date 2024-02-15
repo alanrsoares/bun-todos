@@ -1,6 +1,6 @@
 import * as elements from "typed-html";
 
-import { ITodoItem } from "~/lib/todos";
+import { ITodoItem } from "~/services/todos";
 import { TrashIcon } from "./icons";
 import tw, { HxProps } from "~/lib/tw";
 
