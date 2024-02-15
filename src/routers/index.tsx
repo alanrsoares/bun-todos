@@ -4,14 +4,7 @@ import { html } from "@elysiajs/html";
 import * as elements from "typed-html";
 import Layout from "../ui/Layout";
 import HomePage from "../pages";
-import {
-  IN_MEMORY_STATE,
-  addTodo,
-  toggleTodo,
-  removeTodo,
-  toggleAllTodos,
-  clearCompletedTodos,
-} from "../services/todos";
+import * as todosDB from "../domain/todos/todos.repository";
 import TodoList from "../ui/TodoList";
 import TodoItem from "../ui/TodoItem";
 import { Document } from "../document";
@@ -29,12 +22,16 @@ const router = new Elysia()
     )
   )
   // get all todos
-  .get("/todos", ({ html }) => html(<TodoList todos={IN_MEMORY_STATE.todos} />))
+  .get("/todos", async ({ html }) => {
+    const todos = await todosDB.getTodos();
+
+    return html(<TodoList todos={todos} />);
+  })
   // add a todo
   .post(
     "/todos",
-    ({ body }) => {
-      const newTodo = addTodo(body.content, IN_MEMORY_STATE);
+    async ({ body }) => {
+      const newTodo = await todosDB.addTodo(body.content);
 
       return <TodoItem {...newTodo} />;
     },
@@ -47,8 +44,8 @@ const router = new Elysia()
   // toggle a todo
   .post(
     "/todos/toggle/:id",
-    ({ params }) => {
-      const todo = toggleTodo(params.id, IN_MEMORY_STATE);
+    async ({ params }) => {
+      const todo = await todosDB.toggleTodo(params.id);
 
       return <TodoItem {...todo} />;
     },
@@ -59,8 +56,8 @@ const router = new Elysia()
     }
   )
   // toggle all todos
-  .post("/todos/toggle", () => {
-    const todos = toggleAllTodos(IN_MEMORY_STATE);
+  .post("/todos/toggle", async () => {
+    const todos = await todosDB.toggleAllTodos();
 
     return <TodoList todos={todos} />;
   })
@@ -68,7 +65,7 @@ const router = new Elysia()
   .delete(
     "/todos/:id",
     ({ params }) => {
-      removeTodo(params.id, IN_MEMORY_STATE);
+      todosDB.removeTodo(params.id);
     },
     {
       params: t.Object({
@@ -77,8 +74,8 @@ const router = new Elysia()
     }
   )
   // clean completed todos
-  .delete("/todos", () => {
-    const todos = clearCompletedTodos(IN_MEMORY_STATE);
+  .delete("/todos", async () => {
+    const todos = await todosDB.clearCompletedTodos();
 
     return <TodoList todos={todos} />;
   })
