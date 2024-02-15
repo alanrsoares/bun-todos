@@ -2,12 +2,12 @@ import { Elysia, t } from "elysia";
 import { html } from "@elysiajs/html";
 
 import * as elements from "typed-html";
-import Layout from "../ui/Layout";
-import HomePage from "../pages";
-import * as todosDB from "../domain/todos/todos.repository";
-import TodoList from "../ui/TodoList";
-import TodoItem from "../ui/TodoItem";
-import { Document } from "../document";
+import Layout from "~/ui/Layout";
+import HomePage from "~/pages";
+import * as todosDB from "~/domain/todos/todos.repository";
+import TodoList from "~/ui/TodoList";
+import TodoItem from "~/ui/TodoItem";
+import { Document } from "~/document";
 
 const router = new Elysia()
   .use(html())
