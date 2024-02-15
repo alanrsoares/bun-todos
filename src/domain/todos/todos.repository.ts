@@ -1,5 +1,5 @@
 import { eq } from "drizzle-orm";
-import { partition } from "rambda";
+import { indexBy, partition, prop } from "rambda";
 
 import { Todo, todosTable } from "~/drizzle/schema";
 import db from "~/services/db";
@@ -91,16 +91,18 @@ export async function toggleAllTodos(): Promise<ITodoItem[]> {
       }));
 
   await Promise.all(
-    updatedTodos.map((todo) =>
+    updatedTodos.map(({ completed, id }) =>
       db
         .update(todosTable)
-        .set({ completed: todo.completed })
-        .where(eq(todosTable.id, todo.id))
+        .set({ completed: completed })
+        .where(eq(todosTable.id, id))
         .execute(),
     ),
   );
 
-  return updatedTodos.map(toTodoItem);
+  const updatedIndexedById = indexBy(prop("id"), updatedTodos);
+
+  return todos.map((x) => updatedIndexedById[x.id] ?? x).map(toTodoItem);
 }
 
 export async function getTodos(): Promise<ITodoItem[]> {

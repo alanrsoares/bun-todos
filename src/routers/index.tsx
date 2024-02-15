@@ -18,6 +18,7 @@ const router = app
       </Document>,
     ),
   )
+  // compose domain routers
   .use(todosRouterMiddleware);
 
 export default router;
