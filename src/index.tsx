@@ -111,7 +111,7 @@ const Document = ({ children }: { children: Children }) => `
   <title>${APP_TITLE}</title>
   ${SCRIPTS.map(({ name, version }) => (
     <script src={`https://unpkg.com/${name}@${version}`} />
-  ))}
+  )).join("\n")}
   <link href="/styles.css" rel="stylesheet">
 </head>
 
