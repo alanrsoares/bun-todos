@@ -1,5 +1,5 @@
-import { Elysia } from "elysia";
 import { html } from "@elysiajs/html";
+import { Elysia } from "elysia";
 
 import router from "./routers";
 
@@ -15,7 +15,7 @@ function main() {
     .listen(3000);
 
   console.log(
-    `🦊 Elysia is running at http://${server?.hostname}:${server?.port}`
+    `🦊 Elysia is running at http://${server?.hostname}:${server?.port}`,
   );
 }
 

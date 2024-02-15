@@ -1,6 +1,7 @@
+import { cva, VariantProps } from "class-variance-authority";
 import * as elements from "typed-html";
+
 import { cn } from "./utils";
-import { VariantProps, cva } from "class-variance-authority";
 
 type ElementKeys = keyof JSX.IntrinsicElements;
 
@@ -120,7 +121,7 @@ export type Children = string | Promise<string> | null | undefined;
 export type PropsWithChildren<P = {}> = P & { children?: Children };
 
 export type FC<P = elements.Attributes> = (
-  props: PropsWithChildren<P>
+  props: PropsWithChildren<P>,
 ) => null | string;
 
 export type HxProps = elements.Attributes &
@@ -161,7 +162,7 @@ function createTW() {
               ...attributes,
               class: cn(attributes?.class, variance(attributes)),
             },
-            ...contents
+            ...contents,
           );
       };
 
@@ -174,11 +175,11 @@ function createTW() {
                 ...attributes,
                 class: cn(attributes?.class, ...classNames),
               },
-              ...contents
+              ...contents,
             )) satisfies CreateElement,
         {
           cva: cvaExtension,
-        }
+        },
       );
 
       return { ...acc, [key]: createElement };
@@ -190,7 +191,7 @@ function createTW() {
           ...args: Parameters<CVA<T>>
         ) => RenderElement<VariantProps<ReturnType<CVA<T>>>>;
       }
-    >
+    >,
   );
 }
 

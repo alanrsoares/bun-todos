@@ -1,14 +1,15 @@
 import * as elements from "typed-html";
 
 import { ITodoItem } from "~/domain/todos/todos.repository";
-import { TrashIcon } from "./icons";
 import tw, { HxProps } from "~/lib/tw";
+
+import { TrashIcon } from "./icons";
 
 type Props = ITodoItem;
 
 export default function TodoItem({ completed, id, content }: Props) {
   return (
-    <div class="flex flex-row space-x-3 items-center w-full justify-between">
+    <div class="flex w-full flex-row items-center justify-between space-x-3">
       <TodoLabel class="flex flex-1" completed={completed}>
         <div class="flex-1">{content}</div>
         <Checkbox checked={completed} id={id} />

@@ -1,9 +1,10 @@
 import * as elements from "typed-html";
 
-import TodoItem from "./TodoItem";
 import { ITodoItem } from "~/domain/todos/todos.repository";
-import TodoForm from "./TodoForm";
 import { PropsWithChildren } from "~/lib/tw";
+
+import TodoForm from "./TodoForm";
+import TodoItem from "./TodoItem";
 
 type Props = PropsWithChildren<{
   todos: ITodoItem[];
@@ -14,7 +15,7 @@ export default function TodoList({ todos }: Props) {
     <div class="space-y-4" id="todo-list">
       {todos.map(TodoItem)}
       <TodoForm />
-      <div class="flex justify-evenly items-center">
+      <div class="flex items-center justify-evenly">
         <a
           href=""
           class="btn-link"

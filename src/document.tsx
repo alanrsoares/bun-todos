@@ -1,6 +1,7 @@
 import * as elements from "typed-html";
-import { Children } from "./lib/tw";
+
 import { APP_TITLE } from "./config";
+import { Children } from "./lib/tw";
 
 const SCRIPTS = [
   {

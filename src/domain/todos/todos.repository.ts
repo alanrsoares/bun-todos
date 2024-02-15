@@ -1,7 +1,7 @@
 import { eq } from "drizzle-orm";
 import { partition } from "rambda";
-import { Todo, todosTable } from "~/drizzle/schema";
 
+import { Todo, todosTable } from "~/drizzle/schema";
 import db from "~/services/db";
 
 export type ITodoItem = {
@@ -73,7 +73,7 @@ export async function toggleAllTodos(): Promise<ITodoItem[]> {
 
   const [completed, pending] = partition(
     (todo) => todo.completed === "true",
-    todos
+    todos,
   );
 
   const allTodosCompleted = pending.length === 0;
@@ -96,8 +96,8 @@ export async function toggleAllTodos(): Promise<ITodoItem[]> {
         .update(todosTable)
         .set({ completed: todo.completed })
         .where(eq(todosTable.id, todo.id))
-        .execute()
-    )
+        .execute(),
+    ),
   );
 
   return updatedTodos.map(toTodoItem);
@@ -116,7 +116,7 @@ export async function getTodos(): Promise<ITodoItem[]> {
 }
 
 export async function getTodosByCompleted(
-  completed: boolean
+  completed: boolean,
 ): Promise<ITodoItem[]> {
   const todos = await db
     .select()
