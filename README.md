@@ -1,13 +1,15 @@
-# Elysia with Bun runtime
+# Example fullstack app with Bun, Elysia, Torso & HTMX
 
-## Getting Started
-To get started with this template, simply paste this command into your terminal:
-```bash
-bun create elysia ./elysia-example
-```
+## Features
+
+- tailwind styling
+- CVA abstraction for styled components with typescript, on the server
+- Drizzle orm
 
 ## Development
+
 To start the development server run:
+
 ```bash
 bun run dev
 ```
