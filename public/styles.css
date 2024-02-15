@@ -1993,6 +1993,10 @@ html {
   margin-inline-start: -1px;
 }
 
+.static {
+  position: static;
+}
+
 .mx-auto {
   margin-left: auto;
   margin-right: auto;

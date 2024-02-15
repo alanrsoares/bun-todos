@@ -9,6 +9,8 @@ function main() {
     .use(html())
     // use router middleware
     .use(router)
+    // serve static files
+    .get("/styles.css", () => Bun.file("./public/styles.css"))
     // start server
     .listen(3000);
 

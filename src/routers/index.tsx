@@ -21,65 +21,66 @@ const router = new Elysia()
       </Document>
     )
   )
-  // get all todos
-  .get("/todos", async ({ html }) => {
-    const todos = await todosDB.getTodos();
+  .group("/todos", (todos) =>
+    todos
+      // get all todos
+      .get("/", async ({ html }) => {
+        const todos = await todosDB.getTodos();
 
-    return html(<TodoList todos={todos} />);
-  })
-  // add a todo
-  .post(
-    "/todos",
-    async ({ body }) => {
-      const newTodo = await todosDB.addTodo(body.content);
+        return html(<TodoList todos={todos} />);
+      })
+      // add a todo
+      .post(
+        "/",
+        async ({ body }) => {
+          const newTodo = await todosDB.addTodo(body.content);
 
-      return <TodoItem {...newTodo} />;
-    },
-    {
-      body: t.Object({
-        content: t.String({ minLength: 1 }),
-      }),
-    }
-  )
-  // toggle a todo
-  .post(
-    "/todos/toggle/:id",
-    async ({ params }) => {
-      const todo = await todosDB.toggleTodo(params.id);
+          return <TodoItem {...newTodo} />;
+        },
+        {
+          body: t.Object({
+            content: t.String({ minLength: 1 }),
+          }),
+        }
+      )
+      // toggle a todo
+      .post(
+        "/toggle/:id",
+        async ({ params }) => {
+          const todo = await todosDB.toggleTodo(params.id);
 
-      return <TodoItem {...todo} />;
-    },
-    {
-      params: t.Object({
-        id: t.String({ minLength: 1 }),
-      }),
-    }
-  )
-  // toggle all todos
-  .post("/todos/toggle", async () => {
-    const todos = await todosDB.toggleAllTodos();
+          return <TodoItem {...todo} />;
+        },
+        {
+          params: t.Object({
+            id: t.String({ minLength: 1 }),
+          }),
+        }
+      )
+      // toggle all todos
+      .post("/toggle", async () => {
+        const todos = await todosDB.toggleAllTodos();
 
-    return <TodoList todos={todos} />;
-  })
-  // delete a todo
-  .delete(
-    "/todos/:id",
-    ({ params }) => {
-      todosDB.removeTodo(params.id);
-    },
-    {
-      params: t.Object({
-        id: t.String({ minLength: 1 }),
-      }),
-    }
-  )
-  // clean completed todos
-  .delete("/todos", async () => {
-    const todos = await todosDB.clearCompletedTodos();
+        return <TodoList todos={todos} />;
+      })
+      // delete a todo
+      .delete(
+        "/:id",
+        ({ params }) => {
+          todosDB.deleteTodo(params.id);
+        },
+        {
+          params: t.Object({
+            id: t.String({ minLength: 1 }),
+          }),
+        }
+      )
+      // clear completed todos
+      .delete("/", async () => {
+        const todos = await todosDB.clearCompletedTodos();
 
-    return <TodoList todos={todos} />;
-  })
-  .get("/styles.css", () => Bun.file("./public/styles.css"))
-  .listen(3000);
+        return <TodoList todos={todos} />;
+      })
+  );
 
 export default router;

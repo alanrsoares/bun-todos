@@ -54,7 +54,7 @@ export async function toggleTodo(id: string): Promise<ITodoItem> {
   return toTodoItem({ ...todo, completed });
 }
 
-export async function removeTodo(id: string) {
+export async function deleteTodo(id: string) {
   await db.delete(todosTable).where(eq(todosTable.id, id)).execute();
 
   return id;
