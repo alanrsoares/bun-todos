@@ -20,7 +20,6 @@ export default function TodoList({ todos }: Props) {
           class="btn-link"
           hx-delete="/todos"
           hx-swap="outerHTML"
-          // should targer the parent div
           hx-target="#todo-list"
         >
           clear completed
