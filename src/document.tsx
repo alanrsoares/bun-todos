@@ -13,6 +13,10 @@ const SCRIPTS = [
   },
 ];
 
+const SCRIPTS_BLOCK = SCRIPTS.map(({ name, version }) => (
+  <script src={`https://unpkg.com/${name}@${version}`} />
+)).join("\n");
+
 export const Document = ({ children }: { children: Children }) => `
 <!DOCTYPE html>
 <html lang="en">
@@ -21,9 +25,7 @@ export const Document = ({ children }: { children: Children }) => `
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>${APP_TITLE}</title>
-  ${SCRIPTS.map(({ name, version }) => (
-    <script src={`https://unpkg.com/${name}@${version}`} />
-  )).join("\n")}
+  ${SCRIPTS_BLOCK}
   <link href="/styles.css" rel="stylesheet">
 </head>
 
