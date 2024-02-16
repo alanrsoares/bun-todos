@@ -1,3 +1,5 @@
+import { compose } from "rambda";
+
 import tw, { ComponentProps } from "~/lib/tw";
 
 const StyledMenu = tw.ul.cva("menu", {
@@ -16,23 +18,25 @@ const StyledMenu = tw.ul.cva("menu", {
   },
 });
 
-const StyledMenuItem = tw.li.cva("menu-item", {
-  variants: {
-    active: {
-      true: "active",
+const StyledMenuItem = compose(
+  tw.li.cva("menu-item", {
+    variants: {
+      active: {
+        true: "active",
+      },
+      bordered: {
+        true: "bordered",
+        hover: "hover-bordered",
+      },
+      disabled: {
+        true: "disabled",
+      },
     },
-    bordered: {
-      true: "bordered",
-      hover: "hover-bordered",
-    },
-    disabled: {
-      true: "disabled",
-    },
-  },
-});
+  }),
+);
 
 export const Menu = Object.assign(StyledMenu, {
-  Title: tw.h2`menu-title`,
+  Title: tw.h2`menu-item menu-title`,
   Body: tw.div`menu-body`,
   Actions: tw.div`menu-actions`,
 });

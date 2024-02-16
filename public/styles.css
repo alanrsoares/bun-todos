@@ -1002,6 +1002,16 @@ html {
   transform: translateX(100%);
 }
 
+.drawer-toggle {
+  position: fixed;
+  height: 0px;
+  width: 0px;
+  -webkit-appearance: none;
+     -moz-appearance: none;
+          appearance: none;
+  opacity: 0;
+}
+
 .drawer-toggle:checked ~ .drawer-side {
   pointer-events: auto;
   visibility: visible;
@@ -2717,6 +2727,10 @@ html {
   width: 2rem;
 }
 
+.drawer-open > .drawer-toggle {
+  display: none;
+}
+
 .drawer-open > .drawer-toggle ~ .drawer-side {
   pointer-events: auto;
   visibility: visible;
@@ -2741,6 +2755,11 @@ html {
 
 .drawer-open > .drawer-side {
   overflow-y: auto;
+}
+
+html:has(.drawer-toggle:checked) {
+  overflow-y: hidden;
+  scrollbar-gutter: stable;
 }
 
 .input-xs {
@@ -2972,22 +2991,30 @@ html {
   position: static;
 }
 
-.mx-auto {
-  margin-left: auto;
-  margin-right: auto;
-}
-
 .mx-1 {
   margin-left: 0.25rem;
   margin-right: 0.25rem;
+}
+
+.mx-auto {
+  margin-left: auto;
+  margin-right: auto;
 }
 
 .block {
   display: block;
 }
 
+.inline-block {
+  display: inline-block;
+}
+
 .flex {
   display: flex;
+}
+
+.inline-flex {
+  display: inline-flex;
 }
 
 .grid {
@@ -3006,12 +3033,20 @@ html {
   min-height: 100dvh;
 }
 
-.w-10 {
-  width: 2.5rem;
+.min-h-full {
+  min-height: 100%;
 }
 
 .w-8 {
   width: 2rem;
+}
+
+.w-80 {
+  width: 20rem;
+}
+
+.w-9 {
+  width: 2.25rem;
 }
 
 .w-full {
@@ -3023,8 +3058,8 @@ html {
   width: min-content;
 }
 
-.w-9 {
-  width: 2.25rem;
+.w-56 {
+  width: 14rem;
 }
 
 .max-w-sm {
@@ -3095,6 +3130,10 @@ html {
   border-radius: 9999px;
 }
 
+.border {
+  border-width: 1px;
+}
+
 .bg-base-100 {
   --tw-bg-opacity: 1;
   background-color: var(--fallback-b1,oklch(var(--b1)/var(--tw-bg-opacity)));
@@ -3113,14 +3152,18 @@ html {
   padding: 0.25rem;
 }
 
+.p-4 {
+  padding: 1rem;
+}
+
 .px-4 {
   padding-left: 1rem;
   padding-right: 1rem;
 }
 
-.px-1 {
-  padding-left: 0.25rem;
-  padding-right: 0.25rem;
+.text-base-content {
+  --tw-text-opacity: 1;
+  color: var(--fallback-bc,oklch(var(--bc)/var(--tw-text-opacity)));
 }
 
 .text-red-500 {
@@ -3179,6 +3222,14 @@ html {
 
   .sm\:inline-block {
     display: inline-block;
+  }
+
+  .sm\:inline-flex {
+    display: inline-flex;
+  }
+
+  .sm\:hidden {
+    display: none;
   }
 
   .sm\:w-10 {
