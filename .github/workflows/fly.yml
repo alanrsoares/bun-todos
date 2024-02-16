@@ -1,9 +1,12 @@
 name: Fly Deploy
-# on tag
+# on tag or release, also on demand
 on:
   push:
     tags:
       - "v*.*.*"
+  release:
+    types: [published]
+  workflow_dispatch: {}
 
 jobs:
   deploy:
