@@ -2854,8 +2854,8 @@ html {
   display: grid;
 }
 
-.h-6 {
-  height: 1.5rem;
+.h-8 {
+  height: 2rem;
 }
 
 .min-h-\[100dvh\] {
@@ -2866,8 +2866,8 @@ html {
   width: 2.5rem;
 }
 
-.w-6 {
-  width: 1.5rem;
+.w-8 {
+  width: 2rem;
 }
 
 .w-full {
@@ -2957,9 +2957,12 @@ html {
   background-color: var(--fallback-b2,oklch(var(--b2)/var(--tw-bg-opacity)));
 }
 
-.bg-error {
-  --tw-bg-opacity: 1;
-  background-color: var(--fallback-er,oklch(var(--er)/var(--tw-bg-opacity)));
+.bg-secondary\/80 {
+  background-color: var(--fallback-s,oklch(var(--s)/0.8));
+}
+
+.p-1 {
+  padding: 0.25rem;
 }
 
 .px-4 {

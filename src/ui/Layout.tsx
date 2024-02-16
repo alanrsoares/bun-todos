@@ -47,8 +47,8 @@ const Header: FC<
 
 const BrandLink: FC<JSX.HtmlAnchorTag> = ({ children, ...props }) => (
   <a class="btn btn-ghost" {...props}>
-    <div class="avatar grid h-6 w-6 place-items-center rounded-full bg-error ring ring-neutral">
-      🥟
+    <div class="avatar grid h-8 w-8 place-items-center rounded-full bg-secondary/80 p-1 ring ring-neutral">
+      <img src="/icon.svg" alt="Bun ToDos" />
     </div>
     {children}
   </a>

@@ -56,6 +56,7 @@ export const Document = ({ children }: DocumentProps) => `
   <title>${APP_TITLE}</title>
   ${SCRIPTS_BLOCK}
   <link href="/styles.css" rel="stylesheet">
+  <link rel="icon" type="image/svg+xml" href="icon.svg">
 </head>
   
 ${children}

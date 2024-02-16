@@ -11,6 +11,7 @@ function main() {
     .use(router)
     // serve static files
     .get("/styles.css", () => Bun.file("./public/styles.css"))
+    .get("/icon.svg", () => Bun.file("./public/icon.svg"))
     // start server
     .listen(3000);
 
