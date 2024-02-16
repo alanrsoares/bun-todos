@@ -31,11 +31,12 @@ const Header: FC<
       <BrandLink href="/">Bun ToDos</BrandLink>
     </div>
     {user && (
-      <div class="navbar-end gap-4">
-        Welcome, {user.firstName} <SignOutButton size="sm" />
+      <div class="navbar-end items-center gap-4">
+        <span class="hidden sm:inline-block">Welcome, {user.firstName}</span>{" "}
+        <SignOutButton size="sm" />
         {user.imageUrl && (
           <div class="avatar">
-            <div class="w-10 rounded-full ring ring-primary ring-offset-2 ring-offset-base-100">
+            <div class="mx-1 w-9 rounded-full ring ring-primary ring-offset-2 ring-offset-base-100 sm:w-10">
               <img src={user.imageUrl} alt={`${user.firstName}'s avatar`} />
             </div>
           </div>
