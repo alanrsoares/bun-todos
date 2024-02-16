@@ -10,7 +10,7 @@ type Props = ITodoItem;
 export default function TodoItem({ completed, id, content }: Props) {
   return (
     <div class="flex w-full flex-row items-center justify-between space-x-3">
-      <TodoLabel class="flex flex-1" completed={completed}>
+      <TodoLabel class="flex flex-1 cursor-pointer" completed={completed}>
         <div class="flex-1">{content}</div>
         <Checkbox checked={completed} id={id} />
       </TodoLabel>
