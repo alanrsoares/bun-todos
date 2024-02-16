@@ -7,7 +7,7 @@ import { protectedRoutes } from "~/routers/middleware";
 import TodoItem from "~/ui/TodoItem";
 import TodoList from "~/ui/TodoList";
 
-import * as todosDB from "./todos.repository";
+import todosDB from "./todos.repository";
 
 export function todosRouter(app: AppRouter) {
   return app.group("/todos", (todos) =>

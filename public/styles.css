@@ -2133,10 +2133,6 @@ html {
   border-radius: 9999px;
 }
 
-.border {
-  border-width: 1px;
-}
-
 .bg-base-200 {
   --tw-bg-opacity: 1;
   background-color: var(--fallback-b2,oklch(var(--b2)/var(--tw-bg-opacity)));

@@ -9,3 +9,5 @@ const turso = createClient({
 const db = drizzle(turso);
 
 export default db;
+
+export type Database = typeof db;

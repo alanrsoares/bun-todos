@@ -2,7 +2,7 @@ import { and, eq } from "drizzle-orm";
 import { indexBy, partition, prop } from "rambda";
 
 import { NewTodo, Todo, todosTable } from "~/drizzle/schema";
-import db from "~/services/db";
+import db, { Database } from "~/services/db";
 
 export type ITodoItem = {
   id: string;
@@ -16,157 +16,143 @@ const toTodoItem = (todo: Todo): ITodoItem => ({
   completed: todo.completed === "true",
 });
 
-export async function addTodo(
-  input: Pick<NewTodo, "userId" | "content">,
-): Promise<ITodoItem> {
-  const [result] = await db
-    .insert(todosTable)
-    .values({
-      userId: input.userId,
+export class TodosRepository {
+  constructor(
+    private db: Database,
+    private table: typeof todosTable,
+  ) {}
+
+  async addTodo(
+    input: Pick<NewTodo, "userId" | "content">,
+  ): Promise<ITodoItem> {
+    const [result] = await this.db
+      .insert(this.table)
+      .values({
+        userId: input.userId,
+        content: input.content,
+        completed: "false",
+      })
+      .returning({ id: this.table.id })
+      .execute();
+
+    return {
+      id: result.id,
       content: input.content,
-      completed: "false",
-    })
-    .returning({ id: todosTable.id })
-    .execute();
-
-  return {
-    id: result.id,
-    content: input.content,
-    completed: false,
-  };
-}
-
-export async function toggleTodo(
-  input: Pick<Todo, "id" | "userId">,
-): Promise<ITodoItem> {
-  const todo = await db
-    .select()
-    .from(todosTable)
-    .where(
-      and(eq(todosTable.id, input.id), eq(todosTable.userId, input.userId)),
-    )
-    .get();
-
-  // if todo is not found, either it was deleted or it doesn't belong to the user
-  if (!todo) {
-    throw new Error(`Todo with id ${input.id} not found!`);
+      completed: false,
+    };
   }
 
-  const completed = todo.completed === "true" ? "false" : "true";
+  async toggleTodo(input: Pick<Todo, "id" | "userId">): Promise<ITodoItem> {
+    const todo = await this.db
+      .select()
+      .from(this.table)
+      .where(
+        and(eq(this.table.id, input.id), eq(this.table.userId, input.userId)),
+      )
+      .get();
 
-  await db
-    .update(todosTable)
-    .set({ completed })
-    .where(eq(todosTable.id, input.id))
-    .execute();
+    // if todo is not found, either it was deleted or it doesn't belong to the user
+    if (!todo) {
+      throw new Error(`Todo with id ${input.id} not found!`);
+    }
 
-  return toTodoItem({ ...todo, completed });
-}
+    const completed = todo.completed === "true" ? "false" : "true";
 
-export async function deleteTodo(
-  input: Pick<Todo, "id" | "userId">,
-): Promise<string> {
-  await db
-    .delete(todosTable)
-    .where(
-      and(eq(todosTable.id, input.id), eq(todosTable.userId, input.userId)),
-    )
-    .execute();
+    await this.db
+      .update(this.table)
+      .set({ completed })
+      .where(eq(this.table.id, input.id))
+      .execute();
 
-  return input.id;
-}
+    return toTodoItem({ ...todo, completed });
+  }
 
-export async function clearCompletedTodos(
-  userId: NewTodo["userId"],
-): Promise<ITodoItem[]> {
-  await db
-    .delete(todosTable)
-    .where(and(eq(todosTable.userId, userId), eq(todosTable.completed, "true")))
-    .execute();
+  async deleteTodo(input: Pick<Todo, "id" | "userId">): Promise<string> {
+    await this.db
+      .delete(this.table)
+      .where(
+        and(eq(this.table.id, input.id), eq(this.table.userId, input.userId)),
+      )
+      .execute();
 
-  const pendingTodos = await db
-    .select()
-    .from(todosTable)
-    .where(
-      and(eq(todosTable.userId, userId), eq(todosTable.completed, "false")),
-    )
-    .all();
+    return input.id;
+  }
 
-  return pendingTodos.map(toTodoItem);
-}
+  async clearCompletedTodos(userId: NewTodo["userId"]): Promise<ITodoItem[]> {
+    await this.db
+      .delete(this.table)
+      .where(
+        and(eq(this.table.userId, userId), eq(this.table.completed, "true")),
+      )
+      .execute();
 
-export async function toggleAllTodos(
-  userId: NewTodo["userId"],
-): Promise<ITodoItem[]> {
-  const todos = await db
-    .select()
-    .from(todosTable)
-    .where(eq(todosTable.userId, userId))
-    .all();
+    const pendingTodos = await this.db
+      .select()
+      .from(this.table)
+      .where(
+        and(eq(this.table.userId, userId), eq(this.table.completed, "false")),
+      )
+      .all();
 
-  const [completed, pending] = partition(
-    (todo) => todo.completed === "true",
-    todos,
-  );
+    return pendingTodos.map(toTodoItem);
+  }
 
-  const allTodosCompleted = pending.length === 0;
+  async toggleAllTodos(userId: NewTodo["userId"]): Promise<ITodoItem[]> {
+    const todos = await this.db
+      .select()
+      .from(this.table)
+      .where(eq(this.table.userId, userId))
+      .all();
 
-  const updatedTodos = allTodosCompleted
-    ? completed.map((todo) => ({
-        ...todo,
-        content: todo.content ?? "",
-        completed: "false",
-      }))
-    : pending.map((todo) => ({
-        ...todo,
-        content: todo.content ?? "",
-        completed: "true",
-      }));
+    const [completed, pending] = partition(
+      (todo) => todo.completed === "true",
+      todos,
+    );
 
-  await Promise.all(
-    updatedTodos.map(({ completed, id }) =>
-      db
-        .update(todosTable)
-        .set({ completed: completed })
-        .where(and(eq(todosTable.id, id), eq(todosTable.userId, userId)))
-        .execute(),
-    ),
-  );
+    const allTodosCompleted = pending.length === 0;
 
-  const updatedIndexedById = indexBy(prop("id"), updatedTodos);
+    const updatedTodos = allTodosCompleted
+      ? completed.map((todo) => ({
+          ...todo,
+          content: todo.content ?? "",
+          completed: "false",
+        }))
+      : pending.map((todo) => ({
+          ...todo,
+          content: todo.content ?? "",
+          completed: "true",
+        }));
 
-  return todos.map((x) => updatedIndexedById[x.id] ?? x).map(toTodoItem);
-}
-
-export async function getTodos(
-  userId: NewTodo["userId"],
-): Promise<ITodoItem[]> {
-  const todos = await db
-    .select()
-    .from(todosTable)
-    .where(eq(todosTable.userId, userId))
-    .all();
-
-  return todos.map((todo) => ({
-    id: todo.id,
-    content: todo.content ?? "",
-    completed: todo.completed === "true",
-  }));
-}
-
-export async function getTodosByCompleted(
-  input: Pick<Todo, "userId" | "completed">,
-): Promise<ITodoItem[]> {
-  const todos = await db
-    .select()
-    .from(todosTable)
-    .where(
-      and(
-        eq(todosTable.completed, input.completed ? "true" : "false"),
-        eq(todosTable.userId, input.userId),
+    await Promise.all(
+      updatedTodos.map(({ completed, id }) =>
+        this.db
+          .update(this.table)
+          .set({ completed: completed })
+          .where(and(eq(this.table.id, id), eq(this.table.userId, userId)))
+          .execute(),
       ),
-    )
-    .all();
+    );
 
-  return todos.map(toTodoItem);
+    const updatedIndexedById = indexBy(prop("id"), updatedTodos);
+
+    return todos.map((x) => updatedIndexedById[x.id] ?? x).map(toTodoItem);
+  }
+
+  async getTodos(userId: NewTodo["userId"]): Promise<ITodoItem[]> {
+    const todos = await this.db
+      .select()
+      .from(this.table)
+      .where(eq(this.table.userId, userId))
+      .all();
+
+    return todos.map((todo) => ({
+      id: todo.id,
+      content: todo.content ?? "",
+      completed: todo.completed === "true",
+    }));
+  }
 }
+
+const todosRepository = new TodosRepository(db, todosTable);
+
+export default todosRepository;
