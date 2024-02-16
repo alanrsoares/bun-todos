@@ -21,6 +21,10 @@ export const Button = tw.button.cva("btn", {
       md: "btn-md",
       lg: "btn-lg",
     },
+    length: {
+      wide: "btn-wide",
+      block: "btn-block",
+    },
     shape: {
       circle: "btn-circle",
       square: "btn-square",
@@ -28,6 +32,9 @@ export const Button = tw.button.cva("btn", {
     link: {
       true: "btn-link",
     },
+  },
+  defaultVariants: {
+    variant: "primary",
   },
 });
 
@@ -38,3 +45,5 @@ export const Input = tw.input.cva("input", {
     },
   },
 });
+
+export const Divider = tw.div`divider`;

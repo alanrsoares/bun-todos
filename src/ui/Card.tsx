@@ -5,11 +5,14 @@ const Card = tw.div.cva("card", {
     compact: {
       true: "card-compact",
     },
+    responsive: {
+      true: "card-compact sm:card-normal",
+    },
   },
 });
 
 export default Object.assign(Card, {
-  Title: tw.div`card-title`,
+  Title: tw.h2`card-title`,
   Body: tw.div`card-body`,
   Actions: tw.div`card-actions`,
 });

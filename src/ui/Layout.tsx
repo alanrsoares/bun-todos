@@ -1,10 +1,9 @@
+import type { User } from "@clerk/backend";
 import * as elements from "typed-html";
 
 import { FC, PropsWithChildren } from "~/lib/tw";
 
 import { Clamp } from "./core";
-
-type Props = PropsWithChildren<{}>;
 
 const BrandLink: FC<JSX.HtmlAnchorTag> = ({ children, ...props }) => (
   <a class="btn btn-ghost" {...props}>
@@ -22,6 +21,10 @@ const Header: FC<JSX.HtmlTag> = (props) => (
     </Clamp>
   </header>
 );
+
+type Props = PropsWithChildren<{
+  user?: User;
+}>;
 
 export default function Layout({ children }: Props) {
   return (

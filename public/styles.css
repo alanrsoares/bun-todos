@@ -862,6 +862,27 @@ html {
   --tw-border-opacity: 0.2;
 }
 
+.divider {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  align-self: stretch;
+  margin-top: 1rem;
+  margin-bottom: 1rem;
+  height: 1rem;
+  white-space: nowrap;
+}
+
+.divider:before,
+  .divider:after {
+  height: 0.125rem;
+  width: 100%;
+  flex-grow: 1;
+  --tw-content: '';
+  content: var(--tw-content);
+  background-color: var(--fallback-bc,oklch(var(--bc)/0.1));
+}
+
 @media (hover: hover) {
   .btn:hover {
     --tw-border-opacity: 1;
@@ -1568,6 +1589,10 @@ html {
   }
 }
 
+.divider:not(:empty) {
+  gap: 1rem;
+}
+
 .input input {
   --tw-bg-opacity: 1;
   background-color: var(--fallback-p,oklch(var(--p)/var(--tw-bg-opacity)));
@@ -1835,6 +1860,14 @@ html {
   font-size: 1.125rem;
 }
 
+.btn-wide {
+  width: 16rem;
+}
+
+.btn-block {
+  width: 100%;
+}
+
 .btn-square:where(.btn-xs) {
   height: 1.5rem;
   width: 1.5rem;
@@ -2002,6 +2035,10 @@ html {
   margin-right: auto;
 }
 
+.block {
+  display: block;
+}
+
 .flex {
   display: flex;
 }
@@ -2029,6 +2066,10 @@ html {
 .w-min {
   width: -moz-min-content;
   width: min-content;
+}
+
+.max-w-sm {
+  max-width: 24rem;
 }
 
 .flex-1 {
@@ -2121,4 +2162,16 @@ html {
 .ring-neutral {
   --tw-ring-opacity: 1;
   --tw-ring-color: var(--fallback-n,oklch(var(--n)/var(--tw-ring-opacity)));
+}
+
+@media (min-width: 640px) {
+  .sm\:card-normal .card-body {
+    padding: var(--padding-card, 2rem);
+    font-size: 1rem;
+    line-height: 1.5rem;
+  }
+
+  .sm\:card-normal .card-title {
+    margin-bottom: 0.75rem;
+  }
 }

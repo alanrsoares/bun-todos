@@ -14,14 +14,17 @@
     "drizzle:studio": "bun drizzle-kit studio"
   },
   "dependencies": {
+    "@clerk/backend": "^0.38.1",
+    "@clerk/themes": "^1.7.9",
     "@elysiajs/html": "^0.8.0",
-    "@libsql/client": "^0.4.3",
+    "@libsql/client": "^0.5.0",
     "class-variance-authority": "^0.7.0",
     "clsx": "^2.1.0",
     "concurrently": "^8.2.2",
     "daisyui": "^4.7.2",
     "drizzle-orm": "^0.29.3",
     "elysia": "^0.8.17",
+    "elysia-clerk": "^0.3.1",
     "prettier": "^3.2.5",
     "rambda": "^9.1.0",
     "tailwind-merge": "^2.2.1",
