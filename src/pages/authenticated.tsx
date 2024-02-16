@@ -13,7 +13,7 @@ type AuthenticatedPageProps = {
 const AuthenticatedPage: FC<AuthenticatedPageProps> = ({ user }) => {
   return (
     <Container>
-      <Card class="mx-auto w-min bg-base-200" responsive>
+      <Card class="mx-auto w-min" frosted>
         <Card.Body class="space-y-4">
           <Card.Title>{`${user?.firstName}'s ToDos`}</Card.Title>
           <div hx-get="/todos" hx-swap="outerHtml" hx-trigger="load" />

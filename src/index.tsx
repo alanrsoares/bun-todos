@@ -12,6 +12,7 @@ function main() {
     // serve static files
     .get("/styles.css", () => Bun.file("./public/styles.css"))
     .get("/icon.svg", () => Bun.file("./public/icon.svg"))
+    .get("/bg.webp", () => Bun.file("./public/bg.webp"))
     // start server
     .listen(3000);
 

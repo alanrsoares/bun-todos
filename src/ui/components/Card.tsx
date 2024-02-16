@@ -11,6 +11,9 @@ const StyledCard = tw.div.cva("card", {
     responsive: {
       true: "card-compact sm:card-normal",
     },
+    frosted: {
+      true: "bg-base-200/75 backdrop-blur-sm",
+    },
   },
 });
 

@@ -9,7 +9,7 @@ const Container = tw.div`flex-1 flex items-center justify-center`;
 const UnauthenticatedPage: FC = () => {
   return (
     <Container>
-      <Card class="mx-auto w-full max-w-sm bg-base-200" responsive>
+      <Card class="mx-auto w-full max-w-sm" frosted>
         <Card.Body class="space-y-4">
           <Card.Title>Welcome to Bun ToDos!</Card.Title>
           <div>

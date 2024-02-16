@@ -17,13 +17,11 @@ export default function Layout({ user, children }: Props) {
   return (
     <Drawer class>
       <input id={DRAWER_ID} type="checkbox" class="drawer-toggle" />
-      <Drawer.Content>
-        <div class="flex min-h-[100dvh] flex-col gap-4">
-          <Header user={user} />
-          <main class="flex flex-1">
-            <Clamp class="container mx-auto flex flex-1">{children}</Clamp>
-          </main>
-        </div>
+      <Drawer.Content class="flex min-h-[100dvh] flex-col gap-4 bg-[url('/bg.webp')] bg-center">
+        <Header user={user} />
+        <main class="flex flex-1">
+          <Clamp class="container mx-auto flex flex-1">{children}</Clamp>
+        </main>
       </Drawer.Content>
       {user && (
         <Drawer.Side>
@@ -44,7 +42,7 @@ const Header: FC<
     user?: User;
   }
 > = ({ user, ...props }) => (
-  <header class="navbar bg-base-200 ring-1" {...props}>
+  <header class="navbar bg-base-200/75 ring-1 backdrop-blur-sm" {...props}>
     <div class="navbar-start">
       <BrandLink href="/" class="hidden sm:inline-flex">
         Bun ToDos
