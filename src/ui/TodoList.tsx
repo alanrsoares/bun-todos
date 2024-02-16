@@ -32,7 +32,7 @@ export default function TodoList({ todos }: Props) {
           hx-swap="outerHTML"
           hx-target="#todo-list"
         >
-          togle all
+          toggle all
         </a>
       </div>
     </div>
