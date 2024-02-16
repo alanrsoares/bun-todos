@@ -1,7 +1,7 @@
 import * as elements from "typed-html";
 
 import { ITodoItem } from "~/domain/todos/todos.repository";
-import { PropsWithChildren } from "~/lib/tw";
+import tw, { PropsWithChildren } from "~/lib/tw";
 
 import TodoForm from "./TodoForm";
 import TodoItem from "./TodoItem";
@@ -16,25 +16,25 @@ export default function TodoList({ todos }: Props) {
       {todos.length ? todos.map(TodoItem) : <div>Nothing to do yet</div>}
       <TodoForm />
       <div class="flex items-center justify-evenly">
-        <a
+        <LinkButton
           href=""
-          class="btn-link"
           hx-delete="/todos"
           hx-swap="outerHTML"
           hx-target="#todo-list"
         >
           clear completed
-        </a>
-        <a
+        </LinkButton>
+        <LinkButton
           href=""
-          class="btn-link"
           hx-post="/todos/toggle"
           hx-swap="outerHTML"
           hx-target="#todo-list"
         >
           toggle all
-        </a>
+        </LinkButton>
       </div>
     </div>
   );
 }
+
+const LinkButton = tw.a`btn-link`;
