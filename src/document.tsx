@@ -19,6 +19,8 @@ const SCRIPTS_BLOCK = SCRIPTS.map(({ name, version }) => (
   <script src={`https://unpkg.com/${name}@${version}`} />
 )).join("\n");
 
+const theme = JSON.stringify(dark, null, 2);
+
 const CLERK_BLOCK = `
 <script>
   // Get this URL and Publishable Key from the Clerk Dashboard
@@ -37,7 +39,9 @@ const CLERK_BLOCK = `
   script.addEventListener('load', async function () {
     await window.Clerk.load({
       // Set load options here...
-      baseTheme: ${JSON.stringify(dark)},
+      appearance: {
+        baseTheme: ${theme},
+      }
     });
   });
   document.body.appendChild(script);
