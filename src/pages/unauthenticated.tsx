@@ -1,8 +1,9 @@
 import * as elements from "typed-html";
 
 import tw, { FC } from "~/lib/tw";
+import { SignInButton, SignUpButton } from "~/ui/auth";
 import Card from "~/ui/Card";
-import { Button, Divider } from "~/ui/core";
+import { Divider } from "~/ui/core";
 
 const Container = tw.div`flex-1 flex items-center justify-center`;
 
@@ -13,17 +14,9 @@ const UnauthenticatedPage: FC = () => {
         <Card.Body class="space-y-4">
           <Card.Title>Welcome to Bun ToDos!</Card.Title>
           <div>
-            <Button length="block" _="on click window.Clerk.openSignIn(this)">
-              Sign In
-            </Button>
+            <SignInButton length="block" />
             <Divider>or</Divider>
-            <Button
-              length="block"
-              variant="secondary"
-              _="on click window.Clerk.openSignUp(this)"
-            >
-              Sign Up
-            </Button>
+            <SignUpButton length="block" />
           </div>
         </Card.Body>
       </Card>

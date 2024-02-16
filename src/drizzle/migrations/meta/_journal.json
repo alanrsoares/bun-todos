@@ -8,6 +8,13 @@
       "when": 1707986545565,
       "tag": "0000_slimy_echo",
       "breakpoints": true
+    },
+    {
+      "idx": 1,
+      "version": "5",
+      "when": 1708052600860,
+      "tag": "0001_nebulous_rawhide_kid",
+      "breakpoints": true
     }
   ]
 }

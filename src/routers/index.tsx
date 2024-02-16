@@ -27,7 +27,7 @@ const router = app
 
     return html(
       <Document>
-        <Layout>
+        <Layout user={user}>
           <AuthenticatedPage user={user} />
         </Layout>
       </Document>,

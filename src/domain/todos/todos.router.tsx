@@ -1,4 +1,5 @@
 import { t } from "elysia";
+import invariant from "tiny-invariant";
 import * as elements from "typed-html";
 
 import { AppRouter } from "~/routers/base";
@@ -13,16 +14,23 @@ export function todosRouter(app: AppRouter) {
     todos
       .use(protectedRoutes([/^\/todos/]))
       // get all todos
-      .get("/", async ({ html }) => {
-        const todos = await todosDB.getTodos();
+      .get("/", async ({ html, store }) => {
+        invariant(store.auth?.userId, "User must be authenticated");
+
+        const todos = await todosDB.getTodos(store.auth.userId);
 
         return html(<TodoList todos={todos} />);
       })
       // add a todo
       .post(
         "/",
-        async ({ body }) => {
-          const newTodo = await todosDB.addTodo(body.content);
+        async ({ body, store }) => {
+          invariant(store.auth?.userId, "User must be authenticated");
+
+          const newTodo = await todosDB.addTodo({
+            content: body.content,
+            userId: store.auth.userId,
+          });
 
           return <TodoItem {...newTodo} />;
         },
@@ -35,8 +43,13 @@ export function todosRouter(app: AppRouter) {
       // toggle a todo
       .post(
         "/toggle/:id",
-        async ({ params }) => {
-          const todo = await todosDB.toggleTodo(params.id);
+        async ({ params, store }) => {
+          invariant(store.auth?.userId, "User must be authenticated");
+
+          const todo = await todosDB.toggleTodo({
+            id: params.id,
+            userId: store.auth.userId,
+          });
 
           return <TodoItem {...todo} />;
         },
@@ -47,16 +60,23 @@ export function todosRouter(app: AppRouter) {
         },
       )
       // toggle all todos
-      .post("/toggle", async () => {
-        const todos = await todosDB.toggleAllTodos();
+      .post("/toggle", async ({ store }) => {
+        invariant(store.auth?.userId, "User must be authenticated");
+
+        const todos = await todosDB.toggleAllTodos(store.auth.userId);
 
         return <TodoList todos={todos} />;
       })
       // delete a todo
       .delete(
         "/:id",
-        ({ params }) => {
-          todosDB.deleteTodo(params.id);
+        ({ params, store }) => {
+          invariant(store.auth?.userId, "User must be authenticated");
+
+          todosDB.deleteTodo({
+            id: params.id,
+            userId: store.auth.userId,
+          });
         },
         {
           params: t.Object({
@@ -65,8 +85,10 @@ export function todosRouter(app: AppRouter) {
         },
       )
       // clear completed todos
-      .delete("/", async () => {
-        const todos = await todosDB.clearCompletedTodos();
+      .delete("/", async ({ store }) => {
+        invariant(store.auth?.userId, "User must be authenticated");
+
+        const todos = await todosDB.clearCompletedTodos(store.auth.userId);
 
         return <TodoList todos={todos} />;
       }),

@@ -1148,6 +1148,11 @@ html {
   justify-content: flex-start;
 }
 
+.navbar-end {
+  width: 50%;
+  justify-content: flex-end;
+}
+
 .toggle {
   flex-shrink: 0;
   --tglbg: var(--fallback-b1,oklch(var(--b1)/1));
@@ -2126,6 +2131,10 @@ html {
 
 .rounded-full {
   border-radius: 9999px;
+}
+
+.border {
+  border-width: 1px;
 }
 
 .bg-base-200 {
