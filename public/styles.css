@@ -2854,17 +2854,16 @@ html {
   display: grid;
 }
 
-.size-7 {
-  width: 1.75rem;
-  height: 1.75rem;
-}
-
 .h-6 {
   height: 1.5rem;
 }
 
 .min-h-\[100dvh\] {
   min-height: 100dvh;
+}
+
+.w-10 {
+  width: 2.5rem;
 }
 
 .w-6 {
@@ -2878,22 +2877,6 @@ html {
 .w-min {
   width: -moz-min-content;
   width: min-content;
-}
-
-.w-24 {
-  width: 6rem;
-}
-
-.w-12 {
-  width: 3rem;
-}
-
-.w-8 {
-  width: 2rem;
-}
-
-.w-10 {
-  width: 2.5rem;
 }
 
 .max-w-sm {

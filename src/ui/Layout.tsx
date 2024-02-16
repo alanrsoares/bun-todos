@@ -28,7 +28,7 @@ const Header: FC<
 > = ({ user, ...props }) => (
   <header class="navbar bg-base-200 ring-1" {...props}>
     <div class="navbar-start">
-      <BrandLink href="/">Bun ToDo's</BrandLink>
+      <BrandLink href="/">Bun ToDos</BrandLink>
     </div>
     {user && (
       <div class="navbar-end gap-4">
