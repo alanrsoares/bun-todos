@@ -10,10 +10,10 @@ export type ITodoItem = {
   completed: boolean;
 };
 
-const toTodoItem = (todo: Todo): ITodoItem => ({
-  id: todo.id,
-  content: todo.content ?? "",
-  completed: todo.completed === "true",
+const toTodoItem = ({ id, content, completed }: Todo): ITodoItem => ({
+  id,
+  content,
+  completed: completed === "true",
 });
 
 export class TodosRepository {
@@ -145,11 +145,7 @@ export class TodosRepository {
       .where(eq(this.table.userId, userId))
       .all();
 
-    return todos.map((todo) => ({
-      id: todo.id,
-      content: todo.content ?? "",
-      completed: todo.completed === "true",
-    }));
+    return todos.map(toTodoItem);
   }
 }
 
