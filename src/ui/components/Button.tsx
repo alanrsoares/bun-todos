@@ -27,8 +27,14 @@ export const Button = tw.button.cva("btn", {
       circle: "btn-circle",
       square: "btn-square",
     },
+    outline: {
+      true: "btn-outline",
+    },
     link: {
       true: "btn-link",
+    },
+    loading: {
+      true: "pointer-events-none",
     },
   },
   defaultVariants: {

@@ -5,6 +5,9 @@ const StyledCard = tw.div.cva("card", {
     compact: {
       true: "card-compact",
     },
+    normal: {
+      true: "card-normal",
+    },
     responsive: {
       true: "card-compact sm:card-normal",
     },
