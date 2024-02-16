@@ -1,7 +1,7 @@
 import * as elements from "typed-html";
 
 import { Document } from "~/document";
-import { todosRouterMiddleware } from "~/domain/todos/todos.router";
+import { todosRouter } from "~/domain/todos/todos.router";
 import AuthenticatedPage from "~/pages/authenticated";
 import UnauthenticatedPage from "~/pages/unauthenticated";
 import Layout from "~/ui/Layout";
@@ -34,6 +34,6 @@ const router = app
     );
   })
   // compose domain routers
-  .use(todosRouterMiddleware);
+  .use(todosRouter);
 
 export default router;

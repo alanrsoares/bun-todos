@@ -1,15 +1,17 @@
 import { t } from "elysia";
 import * as elements from "typed-html";
 
-import { BaseApp } from "~/routers/base";
+import { AppRouter } from "~/routers/base";
+import { protectedRoutes } from "~/routers/middleware";
 import TodoItem from "~/ui/TodoItem";
 import TodoList from "~/ui/TodoList";
 
 import * as todosDB from "./todos.repository";
 
-export function todosRouterMiddleware(app: BaseApp) {
+export function todosRouter(app: AppRouter) {
   return app.group("/todos", (todos) =>
     todos
+      .use(protectedRoutes([/^\/todos/]))
       // get all todos
       .get("/", async ({ html }) => {
         const todos = await todosDB.getTodos();
