@@ -1,7 +1,5 @@
 import tw, { ComponentProps } from "~/lib/tw";
 
-export const Clamp = tw.div`container mx-auto w-full`;
-
 export const Button = tw.button.cva("btn", {
   variants: {
     variant: {
@@ -39,15 +37,3 @@ export const Button = tw.button.cva("btn", {
 });
 
 export type ButtonProps = ComponentProps<typeof Button>;
-
-export const Input = tw.input.cva("input", {
-  variants: {
-    bordered: {
-      true: "input-bordered",
-    },
-  },
-});
-
-export type InputProps = ComponentProps<typeof Input>;
-
-export const Divider = tw.div`divider`;

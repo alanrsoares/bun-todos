@@ -1,6 +1,6 @@
 import * as elements from "typed-html";
 
-import { Button, Input } from "./core";
+import { Button, Input } from "./components";
 
 export default function TodoForm() {
   return (

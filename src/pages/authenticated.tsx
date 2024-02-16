@@ -2,7 +2,7 @@ import type { User } from "@clerk/backend";
 import * as elements from "typed-html";
 
 import tw, { FC } from "~/lib/tw";
-import Card from "~/ui/Card";
+import { Card } from "~/ui/components";
 
 const Container = tw.div`flex-1 flex items-center justify-center`;
 

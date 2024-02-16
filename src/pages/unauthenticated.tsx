@@ -2,8 +2,7 @@ import * as elements from "typed-html";
 
 import tw, { FC } from "~/lib/tw";
 import { SignInButton, SignUpButton } from "~/ui/auth";
-import Card from "~/ui/Card";
-import { Divider } from "~/ui/core";
+import { Card, Divider } from "~/ui/components";
 
 const Container = tw.div`flex-1 flex items-center justify-center`;
 

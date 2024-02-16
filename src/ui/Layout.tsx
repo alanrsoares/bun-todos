@@ -4,16 +4,22 @@ import * as elements from "typed-html";
 import { FC, PropsWithChildren } from "~/lib/tw";
 
 import { SignOutButton } from "./auth";
-import { Clamp } from "./core";
+import { Clamp } from "./components";
 
-const BrandLink: FC<JSX.HtmlAnchorTag> = ({ children, ...props }) => (
-  <a class="btn btn-ghost" {...props}>
-    <div class="avatar grid h-6 w-6 place-items-center rounded-full bg-error ring ring-neutral">
-      🥟
+type Props = PropsWithChildren<{
+  user?: User;
+}>;
+
+export default function Layout({ user, children }: Props) {
+  return (
+    <div class="flex min-h-[100dvh] flex-col gap-4">
+      <Header user={user} />
+      <main class="flex flex-1">
+        <Clamp class="container mx-auto flex flex-1">{children}</Clamp>
+      </main>
     </div>
-    {children}
-  </a>
-);
+  );
+}
 
 const Header: FC<
   JSX.HtmlTag & {
@@ -32,17 +38,11 @@ const Header: FC<
   </header>
 );
 
-type Props = PropsWithChildren<{
-  user?: User;
-}>;
-
-export default function Layout({ user, children }: Props) {
-  return (
-    <div class="flex min-h-[100dvh] flex-col gap-4">
-      <Header user={user} />
-      <main class="flex flex-1">
-        <Clamp class="container mx-auto flex flex-1">{children}</Clamp>
-      </main>
+const BrandLink: FC<JSX.HtmlAnchorTag> = ({ children, ...props }) => (
+  <a class="btn btn-ghost" {...props}>
+    <div class="avatar grid h-6 w-6 place-items-center rounded-full bg-error ring ring-neutral">
+      🥟
     </div>
-  );
-}
+    {children}
+  </a>
+);
