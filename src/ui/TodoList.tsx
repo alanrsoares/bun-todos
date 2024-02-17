@@ -13,7 +13,7 @@ type Props = PropsWithChildren<{
 export default function TodoList({ todos }: Props) {
   return (
     <div class="space-y-4" id="todo-list">
-      {todos.length ? todos.map(TodoItem) : <div>Nothing to do yet</div>}
+      {todos.map(TodoItem)}
       <TodoForm />
       <div class="flex items-center justify-evenly">
         <LinkButton
