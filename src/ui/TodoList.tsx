@@ -17,6 +17,7 @@ export default function TodoList({ todos }: Props) {
       <TodoForm />
       <div class="flex items-center justify-evenly">
         <LinkButton
+          class="hover:text-blue-700"
           href=""
           hx-delete="/todos"
           hx-swap="outerHTML"
@@ -25,6 +26,7 @@ export default function TodoList({ todos }: Props) {
           clear completed
         </LinkButton>
         <LinkButton
+          class="hover:text-blue-700"
           href=""
           hx-post="/todos/toggle"
           hx-swap="outerHTML"

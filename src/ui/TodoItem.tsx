@@ -15,7 +15,7 @@ export default function TodoItem({ completed, id, content }: Props) {
         <Checkbox checked={completed} id={id} />
       </TodoLabel>
       <button
-        class="text-red-500"
+        class="text-red-500 hover:text-red-200"
         hx-delete={`/todos/${id}`}
         hx-swap="outerHTML"
         hx-target="closest div"
@@ -31,7 +31,7 @@ type CheckboxProps = HxProps & { checked: boolean; id: string };
 function Checkbox(props: CheckboxProps) {
   return (
     <input
-      class="checkbox"
+      class="checkbox hover:bg-gray-700"
       type="checkbox"
       checked={props.checked}
       hx-post={`/todos/toggle/${props.id}`}
