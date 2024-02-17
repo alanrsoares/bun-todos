@@ -9,6 +9,8 @@ import TodoList from "~/ui/TodoList";
 
 import todosDB from "./todos.repository";
 
+const delay = (ms: number) => new Promise((resolve) => setTimeout(resolve, ms));
+
 export function todosRouter(app: AppRouter) {
   return app.group("/todos", (todos) =>
     todos
@@ -16,6 +18,8 @@ export function todosRouter(app: AppRouter) {
       // get all todos
       .get("/", async ({ html, store }) => {
         invariant(store.auth?.userId, "User must be authenticated");
+
+        await delay(2000);
 
         const todos = await todosDB.getTodos(store.auth.userId);
 

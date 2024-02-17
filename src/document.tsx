@@ -56,11 +56,14 @@ export const Document = ({ children }: DocumentProps) => `
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>${APP_TITLE}</title>
   ${SCRIPTS_BLOCK}
-  <link href="/styles.css" rel="stylesheet">
-  <link rel="icon" type="image/svg+xml" href="icon.svg">
-</head>
+  <script src="https://unpkg.com/htmx.org/dist/ext/loading-states.js"></script>
   
+  <link href="/styles.css" rel="stylesheet" >
+  <link rel="icon" type="image/svg+xml" href="icon.svg" >
+</head>
+  <body hx-ext="loading-states">
 ${children}
+  </body>
 ${CLERK_BLOCK}
 
 </html>

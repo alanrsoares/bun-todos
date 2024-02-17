@@ -15,8 +15,9 @@ export default function TodoForm() {
         name="content"
         placeholder="What needs to be done?"
         bordered
+        class="input-sm md:input-md"
       />
-      <Button type="submit" variant="primary">
+      <Button type="submit" variant="primary" class="btn-sm md:btn-md">
         Add
       </Button>
     </form>
