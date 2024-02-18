@@ -3157,6 +3157,10 @@ html:has(.drawer-toggle:checked) {
   background-image: url('/bg.webp');
 }
 
+.bg-cover {
+  background-size: cover;
+}
+
 .bg-center {
   background-position: center;
 }

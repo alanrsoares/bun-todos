@@ -17,7 +17,7 @@ export default function Layout({ user, children }: Props) {
   return (
     <Drawer class>
       <input id={DRAWER_ID} type="checkbox" class="drawer-toggle" />
-      <Drawer.Content class="flex min-h-[100dvh] flex-col gap-4 bg-[url('/bg.webp')] bg-center">
+      <Drawer.Content class="flex min-h-[100dvh] flex-col gap-4 bg-[url('/bg.webp')] bg-cover bg-center">
         <Header user={user} />
         <main class="flex flex-1">
           <Clamp class="container mx-auto flex flex-1">{children}</Clamp>
