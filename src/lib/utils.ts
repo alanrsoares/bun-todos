@@ -15,3 +15,23 @@ import { twMerge } from "tailwind-merge";
  * ```
  */
 export const cn = (...inputs: ClassValue[]) => twMerge(clsx(inputs));
+
+/**
+ * Delays the execution of the next line of code
+ *
+ * @param ms {number} - milliseconds
+ * @returns Promise
+ *
+ * @example
+ * ```ts
+ * import { delay } from "@axelarjs/ui";
+ *
+ * async function example() {
+ *   console.log("Hello");
+ *   await delay(1000);
+ *   console.log("World");
+ * }
+ * ```
+ */
+export const delay = (ms: number) =>
+  new Promise((resolve) => setTimeout(resolve, ms));
