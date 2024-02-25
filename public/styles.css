@@ -3054,17 +3054,8 @@ html:has(.drawer-toggle:checked) {
   width: 100%;
 }
 
-.w-min {
-  width: -moz-min-content;
-  width: min-content;
-}
-
 .max-w-sm {
   max-width: 24rem;
-}
-
-.max-w-xs {
-  max-width: 20rem;
 }
 
 .flex-1 {
@@ -3176,6 +3167,11 @@ html:has(.drawer-toggle:checked) {
 .px-4 {
   padding-left: 1rem;
   padding-right: 1rem;
+}
+
+.text-xs {
+  font-size: 0.75rem;
+  line-height: 1rem;
 }
 
 .text-base-content {
@@ -3301,15 +3297,6 @@ html:has(.drawer-toggle:checked) {
 }
 
 @media (min-width: 768px) {
-  .md\:w-min {
-    width: -moz-min-content;
-    width: min-content;
-  }
-
-  .md\:gap-4 {
-    gap: 1rem;
-  }
-
   .md\:gap-3 {
     gap: 0.75rem;
   }

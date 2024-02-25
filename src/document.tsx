@@ -13,10 +13,18 @@ const SCRIPTS = [
     name: "hyperscript.org",
     version: "0.9.11",
   },
+  {
+    name: "alpinejs",
+    version: "latest",
+    defer: true,
+  },
 ];
 
-const SCRIPTS_BLOCK = SCRIPTS.map(({ name, version }) => (
-  <script src={`https://unpkg.com/${name}@${version}`} />
+const SCRIPTS_BLOCK = SCRIPTS.map(({ name, version, defer }) => (
+  <script
+    src={`https://unpkg.com/${name}@${version}`}
+    defer={defer ? "defer" : ""}
+  />
 )).join("\n");
 
 const theme = JSON.stringify(dark, null, 2);
@@ -56,12 +64,10 @@ export const Document = ({ children }: DocumentProps) => `
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>${APP_TITLE}</title>
   ${SCRIPTS_BLOCK}
-  <script src="https://unpkg.com/htmx.org/dist/ext/loading-states.js"></script>
-  
   <link href="/styles.css" rel="stylesheet" >
   <link rel="icon" type="image/svg+xml" href="icon.svg" >
 </head>
-  <body hx-ext="loading-states">
+  <body>
 ${children}
   </body>
 ${CLERK_BLOCK}
