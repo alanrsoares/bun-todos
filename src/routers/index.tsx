@@ -10,7 +10,7 @@ import { app } from "./base";
 
 const router = app
   // pages: index
-  .get("/", async ({ html, clerk, store }) => {
+  .get("/", async ({ html, set, clerk, store }) => {
     const userId = store.auth?.userId ?? null;
 
     if (!userId) {
@@ -23,7 +23,22 @@ const router = app
       );
     }
 
+    set.redirect = "/app";
+  })
+  .get("/app", async ({ html, set, clerk, store }) => {
+    const userId = store.auth?.userId ?? null;
+
+    if (!userId) {
+      set.redirect = "/";
+      return;
+    }
+
     const user = await clerk.users.getUser(userId);
+
+    if (!user) {
+      set.redirect = "/";
+      return;
+    }
 
     return html(
       <Document>
