@@ -1,12 +1,9 @@
-import { html } from "@elysiajs/html";
 import { Elysia } from "elysia";
 
 import router from "./routers";
 
 function main() {
   const { server } = new Elysia()
-    // use html middleware
-    .use(html())
     // use router middleware
     .use(router)
     // serve static files
