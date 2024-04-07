@@ -15,14 +15,14 @@ export const SignInButton: FC<ButtonProps> = ({ children, ...props }) => (
 );
 
 export const SignUpButton: FC<ButtonProps> = ({ children, ...props }) => (
-  <Button variant="secondary" _="on click Clerk.openSignUp(this)" {...props}>
+  <Button $variant="secondary" _="on click Clerk.openSignUp(this)" {...props}>
     {isEmpty(children) ? "Sign Up" : children}
   </Button>
 );
 
 export const SignOutButton: FC<ButtonProps> = ({ children, ...props }) => (
   <Button
-    variant="secondary"
+    $variant="secondary"
     _={`on click Clerk.signOut() location.reload()`}
     {...props}
   >

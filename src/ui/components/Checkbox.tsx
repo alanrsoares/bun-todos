@@ -2,7 +2,7 @@ import tw from "~/lib/tw";
 
 export const Checkbox = tw.input.cva("checkbox", {
   variants: {
-    variant: {
+    $variant: {
       primary: "checkbox-primary",
       secondary: "checkbox-secondary",
       accent: "checkbox-accent",
@@ -11,7 +11,7 @@ export const Checkbox = tw.input.cva("checkbox", {
       error: "checkbox-error",
       info: "checkbox-info",
     },
-    inputSize: {
+    $inputSize: {
       xs: "checkbox-xs",
       sm: "checkbox-sm",
       md: "checkbox-md",

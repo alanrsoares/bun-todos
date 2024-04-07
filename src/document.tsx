@@ -7,7 +7,7 @@ import { PropsWithChildren } from "./lib/tw";
 const SCRIPTS = [
   {
     name: "htmx.org",
-    version: "1.9.10",
+    version: "1.9.11",
   },
   {
     name: "hyperscript.org",

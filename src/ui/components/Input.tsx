@@ -2,7 +2,7 @@ import tw, { ComponentProps } from "~/lib/tw";
 
 export const Input = tw.input.cva("input", {
   variants: {
-    variant: {
+    $variant: {
       primary: "input-primary",
       secondary: "input-secondary",
       accent: "input-accent",
@@ -11,16 +11,16 @@ export const Input = tw.input.cva("input", {
       error: "input-error",
       info: "input-info",
     },
-    inputSize: {
+    $inputSize: {
       xs: "input-xs",
       sm: "input-sm",
       md: "input-md",
       lg: "input-lg",
     },
-    ghost: {
+    $ghost: {
       true: "input-ghost",
     },
-    bordered: {
+    $bordered: {
       true: "input-bordered",
     },
     disabled: {

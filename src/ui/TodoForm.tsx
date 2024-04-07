@@ -15,9 +15,15 @@ export default function TodoForm() {
         name="content"
         placeholder="What needs to be done?"
         class="input-sm flex-1 md:input-md"
-        bordered
+        $bordered
+        x-init="$el.focus()"
       />
-      <Button type="submit" variant="primary" class="btn-sm md:btn-md">
+      <Button
+        type="submit"
+        $variant="primary"
+        class="btn-sm md:btn-md"
+        disabled="true"
+      >
         Add
       </Button>
     </form>
