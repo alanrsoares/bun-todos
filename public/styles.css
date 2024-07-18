@@ -1,5 +1,5 @@
 /*
-! tailwindcss v3.4.3 | MIT License | https://tailwindcss.com
+! tailwindcss v3.4.6 | MIT License | https://tailwindcss.com
 */
 
 /*
@@ -508,6 +508,14 @@ html {
   -webkit-tap-highlight-color: transparent;
 }
 
+* {
+  scrollbar-color: color-mix(in oklch, currentColor 35%, transparent) transparent;
+}
+
+*:hover {
+  scrollbar-color: color-mix(in oklch, currentColor 60%, transparent) transparent;
+}
+
 :root {
   color-scheme: dark;
   --in: 72.06% 0.191 231.6;
@@ -796,7 +804,6 @@ html {
   transition-duration: 200ms;
   transition-timing-function: cubic-bezier(0, 0, 0.2, 1);
   border-width: var(--border-btn, 1px);
-  animation: button-pop var(--animation-btn, 0.25s) ease-out;
   transition-property: color, background-color, border-color, opacity, box-shadow, transform;
   --tw-text-opacity: 1;
   color: var(--fallback-bc,oklch(var(--bc)/var(--tw-text-opacity)));
@@ -1499,6 +1506,12 @@ html {
   line-height: 1.5rem;
 }
 
+@media (prefers-reduced-motion: no-preference) {
+  .btn {
+    animation: button-pop var(--animation-btn, 0.25s) ease-out;
+  }
+}
+
 .btn:active:hover,
   .btn:active:focus {
   animation: button-pop 0s ease-out;
@@ -1886,6 +1899,15 @@ html {
   outline-color: var(--fallback-bc,oklch(var(--bc)/1));
 }
 
+.checkbox:disabled {
+  border-width: 0px;
+  cursor: not-allowed;
+  border-color: transparent;
+  --tw-bg-opacity: 1;
+  background-color: var(--fallback-bc,oklch(var(--bc)/var(--tw-bg-opacity)));
+  opacity: 0.2;
+}
+
 .checkbox:checked,
   .checkbox[aria-checked="true"] {
   background-repeat: no-repeat;
@@ -2061,14 +2083,6 @@ html {
   color: var(--fallback-erc,oklch(var(--erc)/var(--tw-text-opacity)));
 }
 
-.checkbox:disabled {
-  cursor: not-allowed;
-  border-color: transparent;
-  --tw-bg-opacity: 1;
-  background-color: var(--fallback-bc,oklch(var(--bc)/var(--tw-bg-opacity)));
-  opacity: 0.2;
-}
-
 @keyframes checkmark {
   0% {
     background-position-y: 5px;
@@ -2236,7 +2250,8 @@ html {
   outline-color: var(--fallback-er,oklch(var(--er)/1));
 }
 
-.input-disabled,
+.input:has(> input[disabled]),
+  .input-disabled,
   .input:disabled,
   .input[disabled] {
   cursor: not-allowed;
@@ -2247,16 +2262,21 @@ html {
   color: var(--fallback-bc,oklch(var(--bc)/0.4));
 }
 
-.input-disabled::-moz-placeholder, .input:disabled::-moz-placeholder, .input[disabled]::-moz-placeholder {
+.input:has(> input[disabled])::-moz-placeholder, .input-disabled::-moz-placeholder, .input:disabled::-moz-placeholder, .input[disabled]::-moz-placeholder {
   color: var(--fallback-bc,oklch(var(--bc)/var(--tw-placeholder-opacity)));
   --tw-placeholder-opacity: 0.2;
 }
 
-.input-disabled::placeholder,
+.input:has(> input[disabled])::placeholder,
+  .input-disabled::placeholder,
   .input:disabled::placeholder,
   .input[disabled]::placeholder {
   color: var(--fallback-bc,oklch(var(--bc)/var(--tw-placeholder-opacity)));
   --tw-placeholder-opacity: 0.2;
+}
+
+.input:has(> input[disabled]) > input[disabled] {
+  cursor: not-allowed;
 }
 
 .input::-webkit-date-and-time-value {
@@ -2267,6 +2287,10 @@ html {
   margin-top: 0px;
   margin-bottom: 0px;
   margin-inline-start: -1px;
+}
+
+.join > :where(*:not(:first-child)):is(.btn) {
+  margin-inline-start: calc(var(--border-btn) * -1);
 }
 
 .link:focus {
@@ -2926,10 +2950,18 @@ html:has(.drawer-toggle:checked) {
   margin-top: -1px;
 }
 
+.join.join-vertical > :where(*:not(:first-child)):is(.btn) {
+  margin-top: calc(var(--border-btn) * -1);
+}
+
 .join.join-horizontal > :where(*:not(:first-child)) {
   margin-top: 0px;
   margin-bottom: 0px;
   margin-inline-start: -1px;
+}
+
+.join.join-horizontal > :where(*:not(:first-child)):is(.btn) {
+  margin-inline-start: calc(var(--border-btn) * -1);
 }
 
 .menu-horizontal > li:not(.menu-title) > details > ul {
@@ -3221,7 +3253,7 @@ html:has(.drawer-toggle:checked) {
 .backdrop-blur-sm {
   --tw-backdrop-blur: blur(4px);
   -webkit-backdrop-filter: var(--tw-backdrop-blur) var(--tw-backdrop-brightness) var(--tw-backdrop-contrast) var(--tw-backdrop-grayscale) var(--tw-backdrop-hue-rotate) var(--tw-backdrop-invert) var(--tw-backdrop-opacity) var(--tw-backdrop-saturate) var(--tw-backdrop-sepia);
-          backdrop-filter: var(--tw-backdrop-blur) var(--tw-backdrop-brightness) var(--tw-backdrop-contrast) var(--tw-backdrop-grayscale) var(--tw-backdrop-hue-rotate) var(--tw-backdrop-invert) var(--tw-backdrop-opacity) var(--tw-backdrop-saturate) var(--tw-backdrop-sepia);
+  backdrop-filter: var(--tw-backdrop-blur) var(--tw-backdrop-brightness) var(--tw-backdrop-contrast) var(--tw-backdrop-grayscale) var(--tw-backdrop-hue-rotate) var(--tw-backdrop-invert) var(--tw-backdrop-opacity) var(--tw-backdrop-saturate) var(--tw-backdrop-sepia);
 }
 
 @media (min-width: 640px) {
@@ -3272,10 +3304,6 @@ html:has(.drawer-toggle:checked) {
     line-height: 1.25rem;
     line-height: 2;
   }
-}
-
-.disabled\:opacity-35:disabled {
-  opacity: 0.35;
 }
 
 @media (min-width: 640px) {
